@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
@@ -10,6 +11,8 @@ Route::get('/', function () {
 
 
 Route::resource('produk', ProdukController::class);
+
+Route::resource('kategori', CategoryController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

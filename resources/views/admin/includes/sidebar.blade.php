@@ -1,13 +1,32 @@
-  <div class="bg-4" id="sidebar-wrapper">
-        <div class="list-group list-group-flush my-3">
-            <a href="index.php" class="list-group-item list-group-item-action bg-4 fw-bold "><i class="bi bi-house me-2"></i>Dashboard</a>
-            <a href="data_laptop.php" class="list-group-item list-group-item-action bg-4 fw-bold "><i class="bi bi-laptop me-2"></i>Data Laptop</a>
-            <a href="barang_masuk.php" class="list-group-item list-group-item-action bg-4 fw-bold "><i class="bi bi-box-arrow-in-down me-2"></i>Barang Masuk</a>
-            <a href="barang_keluar.php" class="list-group-item list-group-item-action bg-4 fw-bold "><i class="bi bi-box-arrow-up me-2"></i>Barang Keluar</a>
-            <a href="rekap_transaksi.php" class="list-group-item list-group-item-action bg-4 fw-bold "><i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi</a>
-            <a href="kelola_user.php" class="list-group-item list-group-item-action bg-4 fw-bold "><i class="bi bi-people me-2"></i>Kelola User</a>
-        </div>
+<div class="bg-4" id="sidebar-wrapper">
+    <div class="list-group list-group-flush my-3">
+        <a href="{{ route('dashboard') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
+            <i class="bi bi-house me-2"></i>Dashboard
+        </a>
+        <a href="{{ route('kategori.index') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('kategori.*') ? 'fw-bold' : '' }}">
+            <i class="bi bi-laptop me-2"></i>Kategori 
+        </a>
+        <a href="{{ route('dashboard') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
+            <i class="bi bi-box-arrow-in-down me-2"></i>Barang Masuk
+        </a>
+        <a href="{{ route('dashboard') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
+            <i class="bi bi-box-arrow-up me-2"></i>Barang Keluar
+        </a>
+        <a href="{{ route('dashboard') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
+            <i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi
+        </a>
+        <a href="{{ route('dashboard') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
+            <i class="bi bi-people me-2"></i>Kelola User
+        </a>
     </div>
+</div>
+
     <form method="POST">
         <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

@@ -29,5 +29,16 @@
             el.classList.toggle("toggled");
         };
     </script>
+
+    {{-- Auto Show Modal if Success Exists --}}
+@if(session('success'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+    });
+</script>
+@endif
+
 </body>
 </html>
