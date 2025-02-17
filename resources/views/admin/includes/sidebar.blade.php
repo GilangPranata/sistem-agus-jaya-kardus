@@ -8,9 +8,9 @@
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('kategori.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-laptop me-2"></i>Kategori 
         </a>
-        <a href="{{ route('dashboard') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
-            <i class="bi bi-box-arrow-in-down me-2"></i>Barang Masuk
+        <a href="{{ route('produk.index') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
+            <i class="bi bi-box-arrow-in-down me-2"></i>Produk
         </a>
         <a href="{{ route('dashboard') }}" 
            class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">

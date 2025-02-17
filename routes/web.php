@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-Route::resource('produk', ProdukController::class);
+Route::resource('produk', ProductController::class);
 
 Route::resource('kategori', CategoryController::class);
 
