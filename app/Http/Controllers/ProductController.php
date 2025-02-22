@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductController extends Controller
 {
@@ -74,4 +75,12 @@ class ProductController extends Controller
         Product::destroy($id);
         return redirect()->route('produk.index')->with('error', 'Produk Berhasil Dihapus');
     }
+    public function printStock()
+{
+    $products = Product::all();
+
+    $pdf = Pdf::loadView('admin.pages.print-pdf.stock', compact('products'));
+
+    return $pdf->download('stock.pdf');
+}
 }

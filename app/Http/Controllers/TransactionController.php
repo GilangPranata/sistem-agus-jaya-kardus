@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Customer;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransactionController extends Controller
 {
@@ -84,4 +85,13 @@ class TransactionController extends Controller
         $transaction->delete();
         return redirect()->route('riwayat-transaksi.index')->with('success', 'Transaksi berhasil dihapus');
     }
+
+    public function printTransactions()
+{
+    $transactions = Transaction::with(['product', 'customer'])->get();
+
+    $pdf = Pdf::loadView('admin.pages.print-pdf.transactions', compact('transactions'));
+
+    return $pdf->download('transactions.pdf');
+}
 }
