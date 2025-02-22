@@ -1,18 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 
 Route::resource('produk', ProductController::class);
 
 Route::resource('kategori', CategoryController::class);
+Route::resource('staff', StaffController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

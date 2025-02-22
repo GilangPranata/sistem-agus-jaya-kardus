@@ -20,9 +20,9 @@
            class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi
         </a>
-        <a href="{{ route('dashboard') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
-            <i class="bi bi-people me-2"></i>Kelola User
+        <a href="{{ route('staff.index') }}" 
+           class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('staff.*') ? 'fw-bold' : '' }}">
+            <i class="bi bi-people me-2"></i>Kelola Pegawai
         </a>
     </div>
 </div>
