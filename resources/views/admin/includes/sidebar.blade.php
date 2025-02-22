@@ -12,17 +12,21 @@
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Produk
         </a>
-        <a href="{{ route('dashboard') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
-            <i class="bi bi-box-arrow-up me-2"></i>Barang Keluar
+        <a href="{{ route('transaksi.create') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
+            <i class="bi bi-box-arrow-up me-2"></i>Transaksi
         </a>
-        <a href="{{ route('dashboard') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
+        <a href="{{ route('riwayat-transaksi.index') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('riwayat-transaksi.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi
         </a>
         <a href="{{ route('staff.index') }}" 
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('staff.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Kelola Pegawai
+        </a>
+        <a href="{{ route('pelanggan.index') }}" 
+           class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('pelanggan.*') ? 'fw-bold' : '' }}">
+            <i class="bi bi-people me-2"></i>Kelola Pelanggan
         </a>
     </div>
 </div>

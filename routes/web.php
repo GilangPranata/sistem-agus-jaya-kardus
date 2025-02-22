@@ -5,6 +5,9 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\TransactionHistory;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -15,6 +18,9 @@ Route::resource('produk', ProductController::class);
 
 Route::resource('kategori', CategoryController::class);
 Route::resource('staff', StaffController::class);
+Route::resource('transaksi', TransactionController::class);
+Route::resource('riwayat-transaksi', TransactionHistory::class);
+Route::resource('pelanggan', CustomerController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
