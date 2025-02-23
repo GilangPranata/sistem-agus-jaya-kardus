@@ -1,7 +1,7 @@
 <div class="bg-4" id="sidebar-wrapper">
     <div class="list-group list-group-flush my-3">
-        <a href="{{ route('dashboard') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request::is('dashboard') ? 'fw-bold' : '' }}">
+        <a href="{{ route('dashboard.index') }}" 
+           class="list-group-item list-group-item-action bg-4   {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-house me-2"></i>Dashboard
         </a>
         <a href="{{ route('kategori.index') }}" 

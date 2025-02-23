@@ -5,11 +5,11 @@
     </div>
     <div class="dropdown">
         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown">
-            <i class="fas fa-user fa-fw me-3"></i> Pengaturan Akun
+            <i class="fas fa-user fa-fw me-3"></i> Log Out
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-3"></i> Setting</a></li>
-            <div class="dropdown-divider"></div>
+           
+           
             <li><a class="dropdown-item text-danger" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt me-3"></i> Logout</a></li>
         </ul>
     </div>
