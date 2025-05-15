@@ -1,28 +1,19 @@
 <div class="bg-4" id="sidebar-wrapper">
     <div class="list-group list-group-flush my-3">
         @role('admin')
-        <a href="{{ route('dashboard.index') }}" 
-        class="list-group-item list-group-item-action bg-4   {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
-         <i class="bi bi-house me-2"></i>Dashboard
-     </a>
+      
      <a href="{{ route('kategori.index') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('kategori.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-laptop me-2"></i>Kategori 
      </a>
-        @endrole
+     
        
         <a href="{{ route('produk.index') }}" 
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Produk
         </a>
-        <a href="{{ route('transaksi.create') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
-            <i class="bi bi-box-arrow-down me-2"></i>Pembelian
-        </a>
-        <a href="{{ route('transaksi.create') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
-            <i class="bi bi-box-arrow-up me-2"></i>Penjualan
-        </a>
+        
+     
         <a href="{{ route('riwayat-transaksi.index') }}" 
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('riwayat-transaksi.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi
@@ -35,6 +26,18 @@
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('pelanggan.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Kelola Pelanggan
         </a>
+        @endrole
+
+        @hasanyrole('admin|pegawai')
+        <a href="{{ route('dashboard.index') }}" 
+        class="list-group-item list-group-item-action bg-4   {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
+         <i class="bi bi-house me-2"></i>Dashboard
+     </a>
+        <a href="{{ route('transaksi.create') }}" 
+        class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
+         <i class="bi bi-box-arrow-down me-2"></i>Transaksi
+     </a>
+@endhasanyrole
     </div>
 </div>
 
