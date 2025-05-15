@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::resource('produk', ProductController::class);
+Route::resource('produk', ProductController::class)->middleware(['auth', 'role:admin']);
 
 Route::resource('kategori', CategoryController::class);
 Route::resource('staff', StaffController::class);

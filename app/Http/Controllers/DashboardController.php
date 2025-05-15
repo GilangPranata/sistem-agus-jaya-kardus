@@ -17,7 +17,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        
+   
         $products = Product::all()->count();
         $categories = Category::all()->count();
         $staffs = Staff::all()->count();

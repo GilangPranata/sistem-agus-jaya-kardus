@@ -14,9 +14,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // get all products with their categories
-        $products = Product::with('category')->latest()->get();
-        return view('admin.pages.produk.index', compact('products'));
+
+            $products = Product::with('category')->latest()->get();
+            return view('admin.pages.produk.index', compact('products'));
+        
     }
 
     /**

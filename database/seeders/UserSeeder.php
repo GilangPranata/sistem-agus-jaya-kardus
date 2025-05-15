@@ -3,27 +3,31 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        DB::table('users')->insert([
+        // Admin
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'admin',
-                'email' => 'admin@gmail.com',
                 'password' => Hash::make('12345678'),
-                'role' => 'admin',
-                'created_at' => now(),
-                'updated_at' => now(),
             ]
-            ]);
-            
+        );
+        $admin->assignRole('admin');
+
+        // Pegawai
+        $pegawai = User::firstOrCreate(
+            ['email' => 'pegawai@gmail.com'],
+            [
+                'name' => 'pegawai',
+                'password' => Hash::make('12345678'),
+            ]
+        );
+        $pegawai->assignRole('pegawai');
     }
 }
