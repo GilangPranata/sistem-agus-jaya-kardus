@@ -13,18 +13,18 @@
      </a>
         @endhasanyrole
 
-        @role('admin')
+      
         <a href="{{ route('produk.index') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-in-down me-2"></i>Produk
      </a>
-        @endrole
+    
         
         <a href="{{ route('transaksi.create') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-down me-2"></i>Transaksi
      </a>
-        @role('admin')
+        
   
       
         
@@ -41,7 +41,7 @@
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('pelanggan.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Kelola Pelanggan
         </a>
-        @endrole
+
 
       
     </div>

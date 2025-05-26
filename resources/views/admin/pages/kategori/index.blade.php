@@ -21,8 +21,9 @@
             <div class="row g-5">
                 {{-- Data Table --}}
                 <div class="col-lg-12">
+                    @role('admin')
                    <a href="{{ route('kategori.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Buat Kategori Baru</a>
-
+                     @endrole
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">
                             <thead class="bg-4">
@@ -30,7 +31,9 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Deskripsi</th>
+                                    @role('admin')
                                     <th>Aksi</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,6 +42,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->description }}</td>
+                                        @role('admin')
                                         <td>
                                             <a href="{{ route('kategori.edit', $category->id) }}" class="btn btn-warning">Edit</a>
                                             <form action="{{ route('kategori.destroy', $category->id) }}" method="POST" class="d-inline">
@@ -47,6 +51,7 @@
                                                 <button type="submit" class="btn btn-danger">Hapus</button>
                                             </form>
                                         </td>
+                                        @endrole
                                     </tr>
                                     
                                 @empty

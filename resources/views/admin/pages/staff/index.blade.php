@@ -21,8 +21,9 @@
             <div class="row g-5">
                 {{-- Data Table --}}
                 <div class="col-lg-12">
+                    @role('admin')
                    <a href="{{ route('staff.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Tambah Staf Baru</a>
-
+                    @endrole
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">
                             <thead class="bg-4">
@@ -32,8 +33,9 @@
                                     <th>Alamat</th>
                                     <th>Tanggal Bergabung</th>
                                     <th>Email</th>
-                                  
+                                    @role('admin')
                                     <th>Aksi</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,6 +46,7 @@
                                         <td>{{ $staff->address }}</td>
                                         <td>{{ $staff->join_date }}</td>
                                         <td>{{ $staff->email }}</td>
+                                        @role('admin')
                                         <td>
                                             <a href="{{ route('staff.edit', $staff->id) }}" class="btn btn-warning">Edit</a>
                                             <form action="{{ route('staff.destroy', $staff->id) }}" method="POST" class="d-inline">
@@ -52,6 +55,7 @@
                                                 <button type="submit" class="btn btn-danger">Hapus</button>
                                             </form>
                                         </td>
+                                        @endrole
                                     </tr>
                                     
                                 @empty
