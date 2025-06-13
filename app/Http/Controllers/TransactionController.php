@@ -44,7 +44,7 @@ class TransactionController extends Controller
             'customer_id' => $request->customer_id,
         ]);
 
-        // update stock product
+        // update stock product 
         $product = Product::findOrFail($request->product_id);
         if ($product->stock < $request->qty) {
             return redirect()->route('riwayat-transaksi.index')->with('error', 'Stok tidak mencukupi');
