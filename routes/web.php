@@ -6,6 +6,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TransactionHistory;
 use App\Http\Controllers\DashboardController;
@@ -16,7 +17,7 @@ Route::get('/', function () {
 });
 
 
-Route::resource('produk', ProductController::class)->middleware(['auth', 'role:admin']);
+Route::resource('produk', ProductController::class);
 
 Route::resource('kategori', CategoryController::class);
 Route::resource('staff', StaffController::class);
@@ -24,6 +25,8 @@ Route::resource('transaksi', TransactionController::class);
 Route::resource('riwayat-transaksi', TransactionHistory::class);
 Route::resource('pelanggan', CustomerController::class);
 Route::resource('dashboard', DashboardController::class);
+Route::resource('collector', CollectorController::class);
+
 
 Route::get('/transactions/print', [TransactionController::class, 'printTransactions'])->name('transactions.print');
 Route::get('/stock/print', [ProductController::class, 'printStock'])->name('stock.print');

@@ -22,7 +22,12 @@
         
         <a href="{{ route('transaksi.create') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
-         <i class="bi bi-box-arrow-down me-2"></i>Transaksi
+         <i class="bi bi-box-arrow-down me-2"></i>Pembelian
+     </a>
+
+        <a href="{{ route('transaksi.create') }}" 
+        class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
+         <i class="bi bi-box-arrow-down me-2"></i>Penjualan
      </a>
         
   
@@ -40,6 +45,10 @@
         <a href="{{ route('pelanggan.index') }}" 
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('pelanggan.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Kelola Pelanggan
+        </a>
+        <a href="{{ route('collector.index') }}" 
+           class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('collector.*') ? 'fw-bold' : '' }}">
+            <i class="bi bi-people me-2"></i>Kelola Pengepul
         </a>
 
 

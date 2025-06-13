@@ -46,10 +46,8 @@ class TransactionController extends Controller
 
         // update stock product 
         $product = Product::findOrFail($request->product_id);
-        if ($product->stock < $request->qty) {
-            return redirect()->route('riwayat-transaksi.index')->with('error', 'Stok tidak mencukupi');
-        }
-        $product->stock = $product->stock - $request->qty;
+       
+        $product->stock = $product->stock + $request->qty;
         $product->save();
 
         return redirect()->route('riwayat-transaksi.index')->with('success', 'Transaksi berhasil disimpan');
