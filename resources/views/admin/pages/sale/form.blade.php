@@ -1,17 +1,24 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Transaksi')
+@section('title', 'Pembelian')
 
 @section('content')
+@if ($message = session('success'))
+    <x-alert type="success" :message="$message" />
+@endif
+
+@if ($message = session('error'))
+    <x-alert type="danger" :message="$message" />
+@endif
 <div class="row px-3">
     <div class="py-2 border-bottom">
-        <h1 class="h1">Transaksi</h1>
+        <h1 class="h1">Penjualan</h1>
     </div>
     <div class="row px-3 pt-3 pb-4 bg-white rounded shadow">
         <div class="col-lg-12">
             <div class="row g-4">
                 <div class="col-lg-12">
-                    <form action="{{ @$transaction ? route('transaksi.update', $transaction) : route('transaksi.store') }}" method="POST">
+                    <form action="{{ @$transaction ? route('sale.update', $transaction) : route('sale.store') }}" method="POST">
                         @csrf
                         @method(@$transaction ? 'PUT' : 'POST')
 
@@ -41,11 +48,11 @@
                                     <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga" value="{{ @$transaction ? $transaction->price : '' }}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="customer_id" class="form-label fw-bold">Pelanggan</label>
-                                    <select class="form-select" id="customer_id" name="customer_id" required>
-                                        <option value="" disabled selected>Pilih Pelanggan</option>
-                                        @foreach($customers as $customer)
-                                            <option value="{{ $customer->id }}" {{ @$transaction && $transaction->customer_id == $customer->id ? 'selected' : '' }}>{{ $customer->name }}</option>
+                                    <label for="collector_id" class="form-label fw-bold">Pengepul</label>
+                                    <select class="form-select" id="collector_id" name="collector_id" required>
+                                        <option value="" disabled selected>Pilih Pengepul</option>
+                                        @foreach($collectors as $collector)
+                                            <option value="{{ $collector->id }}" {{ @$transaction && $transaction->collector_id == $collector->id ? 'selected' : '' }}>{{ $collector->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

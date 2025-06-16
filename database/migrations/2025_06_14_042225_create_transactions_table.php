@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice');
-            $table->foreignId('product_id')->constrained('products');
-            $table->integer('qty');
-            $table->integer('price');
-            $table->foreignId('customer_id')->constrained('customers');
+            $table->unsignedBigInteger('transactionable_id');
+            $table->string('transactionable_type'); // e.g. App\Models\Purchase
+          
             $table->timestamps();
         });
     }

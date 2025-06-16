@@ -20,22 +20,22 @@
      </a>
     
         
-        <a href="{{ route('transaksi.create') }}" 
-        class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
+        <a href="{{ route('purchase.create') }}" 
+        class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('purchase.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-down me-2"></i>Pembelian
      </a>
 
-        <a href="{{ route('transaksi.create') }}" 
-        class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaksi.*') ? 'fw-bold' : '' }}">
-         <i class="bi bi-box-arrow-down me-2"></i>Penjualan
+        <a href="{{ route('sale.create') }}" 
+        class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('sale.*') ? 'fw-bold' : '' }}">
+         <i class="bi bi-box-arrow-up me-2"></i>Penjualan
      </a>
         
   
       
         
      
-        <a href="{{ route('riwayat-transaksi.index') }}" 
-           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('riwayat-transaksi.*') ? 'fw-bold' : '' }}">
+        <a href="{{ route('transaction.index') }}" 
+           class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaction.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi
         </a>
         <a href="{{ route('staff.index') }}" 

@@ -29,29 +29,33 @@
                             <thead class="bg-4">
                                 <tr>
                                     <th>No</th>
+                                    <th>Jenis Transaksi</th>
                                     <th>Invoice</th>
                                     <th>Produk</th>
-                                    <th>Barang</th>
-                                    <th>Waktu</th>
-                                    <th>Aksi</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga</th>
+                                    <th>Tanggal</th>
+                               
+                              
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($transactions as $transaction)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $transaction->invoice }}</td>
-                                        <td>{{ $transaction->product->name }}</td>
-                                        <td>{{ $transaction->customer->name }}</td>
-                                        <td>{{ $transaction->created_at }}</td>
-                                        <td>
-                                       
-                                            <form action="{{ route('transaksi.destroy', $transaction->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                            </form>
-                                        </td>
+                                        @if ($transaction->transactionable_type == 'App\Models\Purchase')
+                                            <td class="text-success">Pembelian</td>
+                                        @elseif ($transaction->transactionable_type == 'App\Models\Sale')
+                                            <td class="text-danger">Penjualan</td>
+   
+                                        @endif
+                                        <td>{{ $transaction->transactionable->product->name }}</td>
+                                        <td>{{ $transaction->transactionable->invoice }}</td>
+                                        <td>{{ $transaction->transactionable->qty }}</td>
+                                        <td>{{ $transaction->transactionable->price }}</td>
+                                        {{-- human readable created_at --}}
+                                        <td>{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
+                                        
                                     </tr>
                                     
                                 @empty
