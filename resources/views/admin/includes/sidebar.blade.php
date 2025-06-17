@@ -29,11 +29,7 @@
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('sale.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-up me-2"></i>Penjualan
      </a>
-        
   
-      
-        
-     
         <a href="{{ route('transaction.index') }}" 
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaction.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi
