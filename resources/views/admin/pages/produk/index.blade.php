@@ -23,9 +23,9 @@
             <div class="row g-5">
                 {{-- Data Table --}}
                 <div class="col-lg-12">
-                    @role('admin')
+                    {{-- @role('admin') --}}
                    <a href="{{ route('produk.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Buat Produk Baru</a>
-                    @endrole
+                    {{-- @endrole --}}
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">
                             <thead class="bg-4">

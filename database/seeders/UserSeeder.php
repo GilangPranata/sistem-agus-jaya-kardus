@@ -21,13 +21,23 @@ class UserSeeder extends Seeder
         $admin->assignRole('admin');
 
         // Pegawai
-        $pegawai = User::firstOrCreate(
-            ['email' => 'pegawai@gmail.com'],
+        $pelanggan = User::firstOrCreate(
+            ['email' => 'pelanggan@gmail.com'],
             [
-                'name' => 'pegawai',
+                'name' => 'pelanggan',
                 'password' => Hash::make('12345678'),
             ]
         );
-        $pegawai->assignRole('pegawai');
+        $pelanggan->assignRole('pelanggan');
+
+        // pengepul
+        $pengepul = User::firstOrCreate(
+            ['email' => 'pengepul@gmail.com'],
+            [
+                'name' => 'pengepul',
+                'password' => Hash::make('12345678'),
+            ]
+        );
+        $pengepul->assignRole('pengepul');
     }
 }

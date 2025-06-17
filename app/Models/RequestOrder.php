@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RequestOrder extends Model
 {
     
+    protected $guarded = ['id'];
     public function collector()
     {
         return $this->belongsTo(Collector::class);

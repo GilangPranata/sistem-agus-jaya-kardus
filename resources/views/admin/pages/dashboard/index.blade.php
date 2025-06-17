@@ -46,8 +46,14 @@
         <div class="col-lg-12">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="{{ route('request-order.index') }}">
+                    
+                        {{-- only admin can see --}}
 
+                        
+                        @if (Auth::user()->name == 'admin')
+                           
+            <a href="{{ route('request-order.index') }}">
+                @endif
                         <div class="card border-info shadow-sm">
                             <div class="card-body text-center">
                                 <h5 class="card-title text-info">Total Permintaan Pengepul</h5>

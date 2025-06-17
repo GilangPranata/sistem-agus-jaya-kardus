@@ -4,11 +4,13 @@
         PT AGUS JAYA KARDUS
     </div>
     <div class="list-group list-group-flush my-3">
-     
-        <a href="{{ route('dashboard.index') }}" 
-        class="list-group-item list-group-item-action bg-4   {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
-         <i class="bi bi-house me-2"></i>Dashboard
-     </a>
+      {{-- only admin --}}
+      <a href="{{ route('dashboard.index') }}" 
+      class="list-group-item list-group-item-action bg-4   {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
+      <i class="bi bi-house me-2"></i>Dashboard
+    </a>
+    @if (Auth::user()->name == 'admin')
+    
  
     
      <a href="{{ route('kategori.index') }}" 
@@ -16,14 +18,17 @@
          <i class="bi bi-laptop me-2"></i>Kategori 
      </a>
        
-
-      
+     @endif
+     @if (Auth::user()->name == 'pelanggan')
         <a href="{{ route('produk.index') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-in-down me-2"></i>Produk
      </a>
-    
-        
+     @endif
+
+     
+  
+     @if (Auth::user()->name == 'admin')
         <a href="{{ route('purchase.create') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('purchase.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-down me-2"></i>Pembelian
@@ -51,12 +56,19 @@
             <i class="bi bi-people me-2"></i>Kelola Pengepul
         </a>
 
+        
         <a href="{{ route('request-order.index') }}" 
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('request-order.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Permintaan Pengepul
         </a>
+        @endif
 
-
+        @if (Auth::user()->name == 'pengepul')
+        <a href="{{ route('request-order.create') }}" 
+        class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('request-order.*') ? 'fw-bold' : '' }}">
+         <i class="bi bi-people me-2"></i>Pesan Barang
+     </a>
+        @endif
       
     </div>
 </div>

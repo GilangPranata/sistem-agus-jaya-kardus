@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\RequestOrder;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class RequestOrderController extends Controller
      */
     public function create()
     {
-        //
+        $products = Product::all();
+        return view('admin.pages.request-order.form', compact('products'));
     }
 
     /**
@@ -32,7 +34,15 @@ class RequestOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       RequestOrder::create([
+            'product_id' => $request->product_id,
+            'collector_id' => 1,
+            'quantity' => $request->quantity,
+            'status' => 'pending', // default status
+        ]);
+
+        // Redirect back to the request order index with a success message
+        return redirect()->route('request-order.create')->with('success', 'Permintaan berhasil dibuat');
     }
 
     /**

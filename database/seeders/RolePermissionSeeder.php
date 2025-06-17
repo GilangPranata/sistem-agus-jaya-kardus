@@ -31,7 +31,8 @@ class RolePermissionSeeder extends Seeder
 
         // Buat roles
         $admin = Role::firstOrCreate(['name' => 'admin']);
-        $pegawai = Role::firstOrCreate(['name' => 'pegawai']);
+        $pegawai = Role::firstOrCreate(['name' => 'pelanggan']);
+        $pengepul = Role::firstOrCreate(['name' => 'pengepul']);
 
         // Assign permissions to roles
         $admin->syncPermissions($permissions); // semua permission
