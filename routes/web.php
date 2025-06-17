@@ -13,6 +13,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\TransactionHistory;
 use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RequestOrderController;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
@@ -30,7 +31,7 @@ Route::resource('transaction', TransactionController::class);
 Route::resource('pelanggan', CustomerController::class);
 Route::resource('dashboard', DashboardController::class);
 Route::resource('collector', CollectorController::class);
-
+Route::resource('request-order', RequestOrderController::class);
 
 // Route::get('/transactions/print', [Controller::class, 'printTransactions'])->name('transactions.print');
 Route::get('/stock/print', [ProductController::class, 'printStock'])->name('stock.print');

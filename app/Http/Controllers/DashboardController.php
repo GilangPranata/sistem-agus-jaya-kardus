@@ -6,6 +6,7 @@ use App\Models\Staff;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\RequestOrder;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,29 +16,30 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index(Request $request)
-    // {
+    public function index(Request $request)
+    {
    
-    //     $products = Product::all()->count();
-    //     $categories = Category::all()->count();
-    //     $staffs = Staff::all()->count();
-    //     $customers = Customer::all()->count();
-    //     $transactions = Transaction::all()->count();
+        $products = Product::all()->count();
+        $categories = Category::all()->count();
+        $staffs = Staff::all()->count();
+        $customers = Customer::all()->count();
+        $transactions = Transaction::all()->count();
+        $requestOrders = RequestOrder::all()->count();
 
-    //     $month = $request->input('month', date('m')); // Default to current month
+        // total income sum(qty * price)
+        $totalIncome = DB::table('sales')->sum(DB::raw('qty * price'));
+       
+        $totalOutcome = DB::table('purchases')->sum(DB::raw('qty * price'));
+      
+        $month = $request->input('month', date('m')); // Default to current month
 
     // // Count transactions for the selected month
-    // $transactions = Transaction::whereMonth('created_at', $month)->count();
+    $transactions = Transaction::whereMonth('created_at', $month)->count();
 
-    // // Calculate total revenue for the selected month
-    // $totalRevenue = Transaction::whereMonth('created_at', $month)
-    //     ->sum(DB::raw('qty * price'));
-      
-    //     // return month in human readable format
-    //     $month = date('F', mktime(0, 0, 0, $month, 1));
-    //     // inputed month 
-    //     return view('admin.pages.dashboard.index', compact('products', 'categories', 'staffs', 'customers', 'transactions', 'totalRevenue', 'month'));
-    // }
+        $month = date('F', mktime(0, 0, 0, $month, 1));
+        // inputed month 
+        return view('admin.pages.dashboard.index', compact('products', 'categories', 'staffs', 'customers', 'transactions',  'month', 'requestOrders', 'totalIncome', 'totalOutcome'));
+    }
 
     /**
      * Show the form for creating a new resource.

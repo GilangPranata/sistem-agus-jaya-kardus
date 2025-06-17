@@ -12,5 +12,10 @@ class Collector extends Model
     {
         return $this->hasMany(Sale::class);
     }
+
+    public function requestOrders()
+    {
+        return $this->hasMany(RequestOrder::class);
+    }
     
 }

@@ -24,4 +24,9 @@ class Product extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function requestOrders()
+    {
+        return $this->hasMany(RequestOrder::class);
+    }
 }
