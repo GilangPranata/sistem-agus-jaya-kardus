@@ -17,7 +17,7 @@ use App\Http\Controllers\RequestOrderController;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
-    return view('collector.landing-page.index');
+    return view('collector.landing-page.indexx');
 });
 
 
