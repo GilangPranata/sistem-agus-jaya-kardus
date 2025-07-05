@@ -19,12 +19,12 @@
      </a>
        
      @endif
-     @if (Auth::user()->name == 'pelanggan')
+     {{-- @if (Auth::user()->name == 'pelanggan') --}}
         <a href="{{ route('produk.index') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-in-down me-2"></i>Produk
      </a>
-     @endif
+     {{-- @endif --}}
 
      
   

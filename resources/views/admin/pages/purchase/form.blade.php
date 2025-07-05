@@ -42,10 +42,7 @@
 
                             {{-- Right Column --}}
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="price" class="form-label fw-bold">Harga</label>
-                                    <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga" value="{{ @$transaction ? $transaction->price : '' }}" required>
-                                </div>
+                                
                                 <div class="mb-3">
                                     <label for="customer_id" class="form-label fw-bold">Pelanggan</label>
                                     <select class="form-select" id="customer_id" name="customer_id" required>

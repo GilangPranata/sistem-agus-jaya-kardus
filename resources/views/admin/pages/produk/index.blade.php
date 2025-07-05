@@ -34,7 +34,8 @@
                                     <th>Kategori</th>
                                     <th>Nama</th>
                                     <th>Deskripsi</th>
-                                    <th>Harga</th>
+                                    <th>Harga Jual</th>
+                                    <th>Harga Beli</th>
                                     <th>Stok</th>
                                     <th>Unit</th>
                                     @role('admin')
@@ -49,7 +50,8 @@
                                         <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->description }}</td>
-                                        <td>{{ $product->price }}</td>
+                                        <td>Rp.{{ $product->sale_price }}</td>
+                                        <td>Rp.{{ $product->purchase_price }}</td>
                                         <td>{{ $product->stock }}</td>
                                         <td>{{ $product->unit }}</td>
                                         @role('admin')

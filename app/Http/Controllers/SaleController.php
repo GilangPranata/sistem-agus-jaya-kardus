@@ -34,7 +34,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-    
+    $product = Product::findOrFail($request->product_id);
 
         // Create a new sale record
         $invoice = (new Sale)->createInvoice();
@@ -42,7 +42,7 @@ class SaleController extends Controller
         $sale->product_id = $request->product_id;
         $sale->collector_id = $request->collector_id;
         $sale->qty = $request->qty;
-        $sale->price = $request->price;
+        $sale->price = $product->sale_price * $request->qty; // Calculate total price based on sale price and quantity
         $sale->invoice = $invoice;
         $sale->save();
 
@@ -59,7 +59,7 @@ class SaleController extends Controller
           $sale->transactions()->create();
         
 
-        return redirect()->route('sale.create')->with('success', 'Penjualan berhasil disimpan');
+        return redirect()->route('transaction.index')->with('success', 'Penjualan berhasil disimpan');
     }
 
     /**

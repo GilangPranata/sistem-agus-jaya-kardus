@@ -43,10 +43,7 @@
 
                             {{-- Right Column --}}
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="price" class="form-label fw-bold">Harga</label>
-                                    <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga" value="{{ @$transaction ? $transaction->price : '' }}" required>
-                                </div>
+                               
                                 <div class="mb-3">
                                     <label for="collector_id" class="form-label fw-bold">Pengepul</label>
                                     <select class="form-select" id="collector_id" name="collector_id" required>

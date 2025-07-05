@@ -36,13 +36,13 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-       
+       $product = Product::findOrFail($request->product_id);
         $invoice = (new Purchase)->createInvoice();
      $purchase = Purchase::create([
             'invoice' => $invoice,
             'product_id' => $request->product_id,
             'qty' => $request->qty,
-            'price' => $request->price,
+            'price' => $product->purchase_price * $request->qty, // Calculate total price based on purchase price and quantity
             'customer_id' => $request->customer_id,
         ]);
 
@@ -54,8 +54,7 @@ class PurchaseController extends Controller
         $product->stock = $product->stock + $request->qty;
         $product->save();
 
-      
-        return redirect()->route('purchase.create')->with('success', 'Pembelian berhasil disimpan');
+        return redirect()->route('transaction.index')->with('success', 'Pembelian berhasil disimpan');
     }
 
     /**

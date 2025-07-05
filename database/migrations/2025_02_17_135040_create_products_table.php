@@ -17,9 +17,10 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->integer('price');
+            $table->integer('purchase_price');
+            $table->integer('sale_price');
             $table->integer('stock');
-            $table->string('unit');
+            $table->string('unit')->default('kilogram');
             $table->timestamps();
         });
     }

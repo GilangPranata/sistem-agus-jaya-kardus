@@ -40,14 +40,18 @@
                             {{-- Right Column --}}
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="price" class="form-label fw-bold">Harga</label>
-                                    <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga" value="{{ @$product ? $product->price : '' }}" required>
+                                    <label for="price" class="form-label fw-bold">Harga Jual</label>
+                                    <input type="number" class="form-control" id="price" name="purchase_price" placeholder="Masukkan harga" value="{{ @$product ? $product->price : '' }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label fw-bold">Harga Beli</label>
+                                    <input type="number" class="form-control" id="price" name="sale_price" placeholder="Masukkan harga" value="{{ @$product ? $product->price : '' }}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="stock" class="form-label fw-bold">Stok</label>
                                     <input type="number" class="form-control" id="stock" name="stock" placeholder="Masukkan stok" value="{{ @$product ? $product->stock : '' }}" required>
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="unit" class="form-label fw-bold">Satuan</label>
                                     <select class="form-select" id="unit" name="unit" required>
                                         <option value="pcs">pcs</option>
@@ -75,7 +79,7 @@
                                         <option value="kva">kva</option>
                                         <option value="kvar">kvar</option>
                                     </select>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 

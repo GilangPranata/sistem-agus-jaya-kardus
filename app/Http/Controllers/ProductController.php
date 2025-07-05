@@ -35,6 +35,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // add new product
+        // dd($request->all());
         Product::create($request->all());
         return redirect()->route('produk.index')->with('success', 'Produk Berhasil Ditambahkan');
     }

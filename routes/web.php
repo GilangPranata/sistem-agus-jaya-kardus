@@ -13,11 +13,12 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\TransactionHistory;
 use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\RequestOrderController;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
-    return view('collector.landing-page.indexx');
+    return view('collector.landing-page.index');
 });
 
 
@@ -34,7 +35,7 @@ Route::resource('collector', CollectorController::class);
 Route::resource('request-order', RequestOrderController::class);
 
 // Route::get('/transactions/print', [Controller::class, 'printTransactions'])->name('transactions.print');
-Route::get('/stock/print', [ProductController::class, 'printStock'])->name('stock.print');
+Route::get('/stock/print', [PdfController::class, 'printDashboard'])->name('stock.print');
 
 
 // Route::get('/dashboard', function () {
