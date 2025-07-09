@@ -2,37 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transactions Report</title>
+    <title>Invoice {{ $transaction->invoice }}</title>
     <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        body { font-family: sans-serif; font-size: 12px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: left; }
+        h1, h2 { margin-bottom: 5px; }
     </style>
 </head>
 <body>
-    <h2>Transactions Report</h2>
+    <h1>Invoice: {{ $transaction->invoice }}</h1>
+    <p><strong>Tanggal:</strong> {{ $transaction->created_at->format('d-m-Y H:i') }}</p>
+    <p><strong>Jenis Transaksi:</strong> {{ ucfirst($transaction->type) }}</p>
+    <p><strong>Customer :</strong> {{ $transaction->customer->name }}</p>
+
+    <h2>Daftar Produk</h2>
     <table>
         <thead>
             <tr>
-                <th>Invoice</th>
-                <th>Product</th>
-                <th>Customer</th>
-                <th>Qty</th>
-                <th>Price</th>
-                <th>Total</th>
+                <th>No</th>
+                <th>ID Produk</th>
+                <th>Jumlah</th>
+                <th>Subtotal (Rp)</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($transactions as $transaction)
+            @foreach($transaction->transactionProducts as $index => $product)
                 <tr>
-                    <td>{{ $transaction->invoice }}</td>
-                    <td>{{ $transaction->product->name }}</td>
-                    <td>{{ $transaction->customer->name }}</td>
-                    <td>{{ $transaction->qty }}</td>
-                    <td>{{ number_format($transaction->price, 0, ',', '.') }}</td>
-                    <td>{{ number_format($transaction->qty * $transaction->price, 0, ',', '.') }}</td>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $product->product_id }}</td>
+                    <td>{{ $product->quantity }}</td>
+                    <td>{{ number_format($product->subtotal, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
+            <tr>
+                <td colspan="3" align="right"><strong>Total</strong></td>
+                <td><strong>Rp{{ number_format($transaction->total_amount, 0, ',', '.') }}</strong></td>
+            </tr>
         </tbody>
     </table>
 </body>

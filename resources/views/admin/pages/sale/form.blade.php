@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Pembelian')
-
+@section('title', 'Penjualan')
 @section('content')
 @if ($message = session('success'))
     <x-alert type="success" :message="$message" />
@@ -10,6 +9,7 @@
 @if ($message = session('error'))
     <x-alert type="danger" :message="$message" />
 @endif
+
 <div class="row px-3">
     <div class="py-2 border-bottom">
         <h1 class="h1">Penjualan</h1>
@@ -18,38 +18,45 @@
         <div class="col-lg-12">
             <div class="row g-4">
                 <div class="col-lg-12">
-                    <form action="{{ @$transaction ? route('sale.update', $transaction) : route('sale.store') }}" method="POST">
+                    <form action="{{ @$transaction ? route('purchase.update', $transaction) : route('purchase.store') }}" method="POST">
                         @csrf
                         @method(@$transaction ? 'PUT' : 'POST')
+                        <input type="hidden" name="type" value="sale">
 
+                        {{-- Invoice --}}
                         <div class="row">
-                            {{-- Left Column --}}
-                            <div class="col-md-6">
-                                
-                                <div class="mb-3">
-                                    <label for="product_id" class="form-label fw-bold">Produk</label>
-                                    <select class="form-select" id="product_id" name="product_id" required>
-                                        <option value="" disabled selected>Pilih Produk</option>
-                                        @foreach($products as $product)
-                                            <option value="{{ $product->id }}" {{ @$transaction && $transaction->product_id == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
-                                        @endforeach
-                                    </select>
+                            {{-- Produk dan Qty --}}
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label fw-bold">Produk & Jumlah</label>
+                                <div id="product-container">
+                                    <div class="row product-row mb-2">
+                                        <div class="col-md-6">
+                                            <select class="form-select" name="product_id[]" required>
+                                                <option value="" disabled selected>Pilih Produk</option>
+                                                @foreach($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" name="qty[]" class="form-control" placeholder="Jumlah" required>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-danger remove-product">Hapus</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="qty" class="form-label fw-bold">Jumlah</label>
-                                    <input type="number" class="form-control" id="qty" name="qty" placeholder="Masukkan jumlah" value="{{ @$transaction ? $transaction->qty : '' }}" required>
-                                </div>
+                                <button type="button" id="add-product" class="btn btn-secondary mt-2">+ Tambah Produk</button>
                             </div>
 
-                            {{-- Right Column --}}
+                            {{-- Pelanggan --}}
                             <div class="col-md-6">
-                               
                                 <div class="mb-3">
-                                    <label for="collector_id" class="form-label fw-bold">Pengepul</label>
-                                    <select class="form-select" id="collector_id" name="collector_id" required>
-                                        <option value="" disabled selected>Pilih Pengepul</option>
+                            <label for="customer_id" class="form-label fw-bold">Pelanggan</label>
+                                    <select class="form-select" id="customer_id" name="customer_id" required>
+                                        <option value="" disabled selected>Pilih Pelanggan</option>
                                         @foreach($collectors as $collector)
-                                            <option value="{{ $collector->id }}" {{ @$transaction && $transaction->collector_id == $collector->id ? 'selected' : '' }}>{{ $collector->name }}</option>
+                                            <option value="{{ $collector->id }}">{{ $collector->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -67,4 +74,38 @@
         </div>
     </div>
 </div>
+
+{{-- Script Tambah Produk --}}
+
+<script>
+    document.getElementById('add-product').addEventListener('click', function () {
+        const container = document.getElementById('product-container');
+        const newRow = document.createElement('div');
+        newRow.classList.add('row', 'product-row', 'mb-2');
+        newRow.innerHTML = `
+            <div class="col-md-6">
+                <select class="form-select" name="product_id[]" required>
+                    <option value="" disabled selected>Pilih Produk</option>
+                    @foreach($products as $product)
+                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="number" name="qty[]" class="form-control" placeholder="Jumlah" required>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger remove-product">Hapus</button>
+            </div>
+        `;
+        container.appendChild(newRow);
+    });
+
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-product')) {
+            e.target.closest('.product-row').remove();
+        }
+    });
+</script>
+
 @endsection

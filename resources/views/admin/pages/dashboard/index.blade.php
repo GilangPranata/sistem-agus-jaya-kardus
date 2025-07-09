@@ -98,7 +98,7 @@
                     <div class="card border-danger shadow-sm">
                         <div class="card-body text-center">
                             <h5 class="card-title text-danger">Total Pelanggan</h5>
-                            <h3 class="card-text">{{ $customers }}</h3>
+                            <h3 class="card-text">{{ $buyers }}</h3>
                         </div>
                     </div>
                 </div>

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('request_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('collector_id')
-                ->constrained('collectors')
+            $table->foreignId('customer_id')
+                ->constrained('customers')
                 ->onDelete('cascade');
             $table->foreignId('product_id')
                 ->constrained('products')

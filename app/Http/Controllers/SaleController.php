@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use App\Models\Product;
+use App\Models\Customer;
 use App\Models\Collector;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\TransactionProducts;
 
 class SaleController extends Controller
 {
@@ -24,7 +27,7 @@ class SaleController extends Controller
     public function create()
     {
         $products = Product::all();
-        $collectors = Collector::all();
+        $collectors = Customer::where('type', 'collector')->get(); // Ambil collector dengan type 'collector'
         
        return view('admin.pages.sale.form', compact('products', 'collectors'));
     }
@@ -34,32 +37,53 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-    $product = Product::findOrFail($request->product_id);
-
-        // Create a new sale record
-        $invoice = (new Sale)->createInvoice();
-        $sale = new Sale();
-        $sale->product_id = $request->product_id;
-        $sale->collector_id = $request->collector_id;
-        $sale->qty = $request->qty;
-        $sale->price = $product->sale_price * $request->qty; // Calculate total price based on sale price and quantity
-        $sale->invoice = $invoice;
-        $sale->save();
-
-        // Update product stock
-        // if stock is less than qty
-        if ($request->qty > $sale->product->stock) {
-            return redirect()->back()->with(['error' => 'Stok tidak cukup untuk melakukan penjualan']);
+        $productIds = $request->product_id;
+        $quantities = $request->qty;
+    
+        DB::beginTransaction();
+    
+        try {
+            // Buat invoice dan transaksi awal
+            $invoice = (new Transaction)->createInvoice();
+    
+            $transaction = new Transaction();
+            $transaction->type = $request->type; // 'purchase'
+            $transaction->customer_id = $request->customer_id;
+            $transaction->invoice = $invoice;
+            $transaction->total_amount = 0; // sementara
+            $transaction->save();
+    
+            $totalAmount = 0;
+    
+            foreach ($productIds as $index => $productId) {
+                $qty = (int) $quantities[$index];
+                $product = Product::findOrFail($productId);
+                $subtotal = $product->sale_price * $qty;
+                $totalAmount += $subtotal;
+    
+                // Simpan detail transaksi
+                TransactionProducts::create([
+                    'transaction_id' => $transaction->id,
+                    'product_id' => $productId,
+                    'quantity' => $qty,
+                    'subtotal' => $subtotal,
+                ]);
+    
+                // Tambahkan stok produk
+                $product->increment('stock', $qty);
+            }
+    
+            // Update total transaksi
+            $transaction->total_amount = $totalAmount;
+            $transaction->save();
+    
+            DB::commit();
+    
+            return redirect()->route('transaction.index')->with('success', 'Transaksi pembelian berhasil disimpan.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-        $product = Product::findOrFail($request->product_id);
-        $product->stock -= $request->qty;
-        $product->save();
-
-          // update to history transaction
-          $sale->transactions()->create();
-        
-
-        return redirect()->route('transaction.index')->with('success', 'Penjualan berhasil disimpan');
     }
 
     /**

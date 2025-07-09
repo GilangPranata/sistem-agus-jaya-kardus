@@ -36,6 +36,7 @@ Route::resource('request-order', RequestOrderController::class);
 
 // Route::get('/transactions/print', [Controller::class, 'printTransactions'])->name('transactions.print');
 Route::get('/stock/print', [PdfController::class, 'printDashboard'])->name('stock.print');
+Route::get('/transactions/print/{id}', [PdfController::class, 'printTransaction'])->name('transactions.print');
 
 
 // Route::get('/dashboard', function () {

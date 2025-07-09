@@ -87,7 +87,7 @@
         </div>
         
         <div class="stat-card">
-            <div class="stat-value">{{ $customers }}</div>
+            <div class="stat-value">{{ $buyers }}</div>
             <div class="stat-caption">Total Pembeli</div>
         </div>
         

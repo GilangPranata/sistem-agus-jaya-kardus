@@ -27,9 +27,9 @@ class PurchaseController extends Controller
     public function create()
     {
           $products = Product::all();
-        $customers = Customer::all();
-       
-       return view('admin.pages.purchase.form', compact('products', 'customers'));
+        $buyers = Customer::where('type', 'buyer')->get(); // Ambil customer dengan type 'buyer'
+    //    dd($buyers);
+       return view('admin.pages.purchase.form', compact('products', 'buyers'));
     }
 
     /**
@@ -39,41 +39,29 @@ class PurchaseController extends Controller
     {
         $productIds = $request->product_id;
         $quantities = $request->qty;
-        $customerId = $request->customer_id;
     
         DB::beginTransaction();
     
         try {
-            // Hitung total amount
+            // Buat invoice dan transaksi awal
+            $invoice = (new Transaction)->createInvoice();
+    
+            $transaction = new Transaction();
+            $transaction->type = $request->type; // 'purchase'
+            $transaction->customer_id = $request->customer_id;
+            $transaction->invoice = $invoice;
+            $transaction->total_amount = 0; // sementara
+            $transaction->save();
+    
             $totalAmount = 0;
+    
             foreach ($productIds as $index => $productId) {
-                $product = Product::findOrFail($productId);
                 $qty = (int) $quantities[$index];
+                $product = Product::findOrFail($productId);
                 $subtotal = $product->purchase_price * $qty;
                 $totalAmount += $subtotal;
-            }
     
-            // Buat Purchase
-            $purchase = Purchase::create([
-                'invoice' => (new Purchase)->createInvoice(),
-                'customer_id' => $customerId, // simpan juga di sini
-                'qty' => array_sum($quantities), // total semua qty
-                'price' => $totalAmount,
-            ]);
-    
-            // Buat Transaction utama
-            $transaction = $purchase->transactions()->create([
-                'customerable_id' => $customerId,
-                'customerable_type' => 'App\Models\Customer', // ganti sesuai modelmu
-                'total_amount' => $totalAmount,
-            ]);
-    
-            // Masukkan ke tabel detail transaksi
-            foreach ($productIds as $index => $productId) {
-                $product = Product::findOrFail($productId);
-                $qty = (int) $quantities[$index];
-                $subtotal = $product->purchase_price * $qty;
-    
+                // Simpan detail transaksi
                 TransactionProducts::create([
                     'transaction_id' => $transaction->id,
                     'product_id' => $productId,
@@ -81,13 +69,17 @@ class PurchaseController extends Controller
                     'subtotal' => $subtotal,
                 ]);
     
-                // Update stok
+                // Tambahkan stok produk
                 $product->increment('stock', $qty);
             }
     
+            // Update total transaksi
+            $transaction->total_amount = $totalAmount;
+            $transaction->save();
+    
             DB::commit();
     
-            return redirect()->route('transaction.index')->with('success', 'Pembelian berhasil disimpan');
+            return redirect()->route('transaction.index')->with('success', 'Transaksi pembelian berhasil disimpan.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

@@ -31,30 +31,34 @@
                                     <th>No</th>
                                     <th>Jenis Transaksi</th>
                                     <th>Invoice</th>
-                                    <th>Produk</th>
-                                    <th>Jumlah</th>
-                                    <th>Harga</th>
+                                    <th>Total Harga</th>
+                                    <th>Customer</th>
                                     <th>Tanggal</th>
-                               
-                              
+                                    <th>Print</th>
+                    
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($transactions as $transaction)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        @if ($transaction->transactionable_type == 'App\Models\Purchase')
+                                        @if ($transaction->type == 'purchase')
                                             <td class="text-success">Pembelian</td>
-                                        @elseif ($transaction->transactionable_type == 'App\Models\Sale')
+                                        @elseif ($transaction->type == 'sale')
                                             <td class="text-danger">Penjualan</td>
    
                                         @endif
-                                        <td>{{ $transaction->transactionable->product->name }}</td>
-                                        <td>{{ $transaction->transactionable->invoice }}</td>
-                                        <td>{{ $transaction->transactionable->qty }}</td>
-                                        <td>{{ $transaction->transactionable->price }}</td>
+                                      
+                                        <td>{{ $transaction->invoice }}</td>
+                                        <td>{{ $transaction->total_amount }}</td>
+                                        <td>{{ $transaction->customer->name ?? 'Gilang' }}</td>
                                         {{-- human readable created_at --}}
                                         <td>{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
+                                        <td>
+                                            <a href="{{ route('transactions.print', $transaction->id) }}" class="btn btn-sm btn-primary" target="_blank">
+                                                <i class="fas fa-print"></i> PDF
+                                            </a>
+                                        </td>
                                         
                                     </tr>
                                     

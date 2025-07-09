@@ -22,14 +22,15 @@ class DashboardController extends Controller
         $products = Product::all()->count();
         $categories = Category::all()->count();
         $staffs = Staff::all()->count();
-        $customers = Customer::all()->count();
+        $buyers = Customer::where('type', 'buyer')->count(); // Count buyers
         $transactions = Transaction::all()->count();
         $requestOrders = RequestOrder::all()->count();
 
-        // total income sum(qty * price)
-        $totalIncome = DB::table('sales')->sum(DB::raw('qty * price'));
-       
-        $totalOutcome = DB::table('purchases')->sum(DB::raw('qty * price'));
+        // total income sum
+        $totalIncome = \App\Models\Transaction::where('type', 'sale')->sum('total_amount');
+      
+
+        $totalOutcome = \App\Models\Transaction::where('type', 'purchase')->sum('total_amount');
       
         $month = $request->input('month', date('m')); // Default to current month
 
@@ -38,7 +39,7 @@ class DashboardController extends Controller
 
         $month = date('F', mktime(0, 0, 0, $month, 1));
         // inputed month 
-        return view('admin.pages.dashboard.index', compact('products', 'categories', 'staffs', 'customers', 'transactions',  'month', 'requestOrders', 'totalIncome', 'totalOutcome'));
+        return view('admin.pages.dashboard.index', compact('products', 'categories', 'staffs', 'buyers', 'transactions',  'month', 'requestOrders', 'totalIncome', 'totalOutcome'));
     }
 
     /**

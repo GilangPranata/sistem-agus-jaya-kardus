@@ -21,7 +21,9 @@
                     <form action="{{ @$transaction ? route('purchase.update', $transaction) : route('purchase.store') }}" method="POST">
                         @csrf
                         @method(@$transaction ? 'PUT' : 'POST')
+                        <input type="hidden" name="type" value="purchase">
 
+                        {{-- Invoice --}}
                         <div class="row">
                             {{-- Produk dan Qty --}}
                             <div class="col-md-12 mb-3">
@@ -50,11 +52,11 @@
                             {{-- Pelanggan --}}
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="customer_id" class="form-label fw-bold">Pelanggan</label>
+                            <label for="customer_id" class="form-label fw-bold">Pelanggan</label>
                                     <select class="form-select" id="customer_id" name="customer_id" required>
                                         <option value="" disabled selected>Pilih Pelanggan</option>
-                                        @foreach($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                        @foreach($buyers as $buyer)
+                                            <option value="{{ $buyer->id }}">{{ $buyer->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

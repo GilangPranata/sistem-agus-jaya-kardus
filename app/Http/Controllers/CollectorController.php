@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collector;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CollectorController extends Controller
@@ -12,7 +13,7 @@ class CollectorController extends Controller
      */
     public function index()
     {
-        $collectors = Collector::latest()->get();
+        $collectors = Customer::where('type', 'collector')->get(); // Ambil collector dengan type 'collector'
         return view('admin.pages.collectors.index', compact('collectors'));
     }
 
@@ -30,8 +31,8 @@ class CollectorController extends Controller
     public function store(Request $request)
     {
     
+        Customer::create($request->merge(['type' => 'collector'])->all());
 
-        Collector::create($request->all());
 
         return redirect()->route('collector.index')->with('success', 'Collector created successfully.');
     }
@@ -49,17 +50,18 @@ class CollectorController extends Controller
      */
     public function edit(string $id)
     {
-        $collector = Collector::findOrFail($id);
+        $collector = Customer::findOrFail($id);
         return view('admin.pages.collectors.form', compact('collector'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Collector $collector)
+    public function update(Request $request, $id)
     {
-        $collector->update($request->all());
-        return redirect()->route('collector.index')->with('success', 'Pengepul Berhasil Diubah');
+        $customer = Customer::findOrFail($id);
+        $customer->update($request->all());
+        return redirect()->route('collector.index')->with('success', 'Collector updated successfully.');
     }
 
     /**
@@ -67,6 +69,8 @@ class CollectorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $collector = Customer::findOrFail($id);
+        $collector->delete();
+        return redirect()->route('collector.index')->with('success', 'Collector deleted successfully.');
     }
 }

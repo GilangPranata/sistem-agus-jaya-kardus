@@ -29,10 +29,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         $this->call(StaffSeeder::class);
         $this->call(CustomerSeeder::class);
-        $this->call(PurchaseSeeder::class);
+        // $this->call(PurchaseSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(CollectorSeeder::class);
-        $this->call(RequestOrderSeeder::class);
+        // $this->call(CollectorSeeder::class);
+        // $this->call(RequestOrderSeeder::class);
         
         }
 }

@@ -17,6 +17,7 @@ class CustomerSeeder extends Seeder
             [
                 'name' => 'Alice Johnson',
                 'address' => '123 Maple Street, City',
+                'type' => 'buyer', // Assuming 'buyer' is the default type
                 'phone' => '123-456-7890',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -24,6 +25,7 @@ class CustomerSeeder extends Seeder
             [
                 'name' => 'Bob Smith',
                 'address' => '456 Oak Avenue, City',
+                'type' => 'collector', // Assuming 'collector' is another type
                 'phone' => '987-654-3210',
                 'created_at' => now(),
                 'updated_at' => now(),
