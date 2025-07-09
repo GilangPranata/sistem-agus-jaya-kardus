@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('transactionable_id');
-            $table->string('transactionable_type'); // e.g. App\Models\Purchase
-          
+            $table->string('invoice')->unique();
+            $table->enum('type', ['purchase', 'sale']); // TANPA polymorphic
+            $table->unsignedBigInteger('customer_id')->nullable(); 
+            $table->integer('total_amount')->default(0);
             $table->timestamps();
         });
+        
     }
 
     /**

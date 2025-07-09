@@ -8,6 +8,8 @@ use App\Models\Purchase;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use App\Models\TransactionProducts;
 
 class PurchaseController extends Controller
 {
@@ -35,26 +37,61 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-       $product = Product::findOrFail($request->product_id);
-        $invoice = (new Purchase)->createInvoice();
-     $purchase = Purchase::create([
-            'invoice' => $invoice,
-            'product_id' => $request->product_id,
-            'qty' => $request->qty,
-            'price' => $product->purchase_price * $request->qty, // Calculate total price based on purchase price and quantity
-            'customer_id' => $request->customer_id,
-        ]);
-
-       $purchase->transactions()->create();
-
-        // update stock product 
-        $product = Product::findOrFail($request->product_id);
-       
-        $product->stock = $product->stock + $request->qty;
-        $product->save();
-
-        return redirect()->route('transaction.index')->with('success', 'Pembelian berhasil disimpan');
+        $productIds = $request->product_id;
+        $quantities = $request->qty;
+        $customerId = $request->customer_id;
+    
+        DB::beginTransaction();
+    
+        try {
+            // Hitung total amount
+            $totalAmount = 0;
+            foreach ($productIds as $index => $productId) {
+                $product = Product::findOrFail($productId);
+                $qty = (int) $quantities[$index];
+                $subtotal = $product->purchase_price * $qty;
+                $totalAmount += $subtotal;
+            }
+    
+            // Buat Purchase
+            $purchase = Purchase::create([
+                'invoice' => (new Purchase)->createInvoice(),
+                'customer_id' => $customerId, // simpan juga di sini
+                'qty' => array_sum($quantities), // total semua qty
+                'price' => $totalAmount,
+            ]);
+    
+            // Buat Transaction utama
+            $transaction = $purchase->transactions()->create([
+                'customerable_id' => $customerId,
+                'customerable_type' => 'App\Models\Customer', // ganti sesuai modelmu
+                'total_amount' => $totalAmount,
+            ]);
+    
+            // Masukkan ke tabel detail transaksi
+            foreach ($productIds as $index => $productId) {
+                $product = Product::findOrFail($productId);
+                $qty = (int) $quantities[$index];
+                $subtotal = $product->purchase_price * $qty;
+    
+                TransactionProducts::create([
+                    'transaction_id' => $transaction->id,
+                    'product_id' => $productId,
+                    'quantity' => $qty,
+                    'subtotal' => $subtotal,
+                ]);
+    
+                // Update stok
+                $product->increment('stock', $qty);
+            }
+    
+            DB::commit();
+    
+            return redirect()->route('transaction.index')->with('success', 'Pembelian berhasil disimpan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**

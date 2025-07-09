@@ -12,6 +12,11 @@ class Collector extends Model
     {
         return $this->hasMany(Sale::class);
     }
+        // Buyer.php
+public function transactions()
+{
+    return $this->morphMany(Transaction::class, 'customerable');
+}
 
     public function requestOrders()
     {

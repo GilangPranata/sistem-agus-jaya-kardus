@@ -12,4 +12,14 @@ class Transaction extends Model
     {
         return $this->morphTo();
     }
+    public function customerable()
+{
+    return $this->morphTo();
+}
+
+public function transactionProducts()
+{
+    return $this->hasMany(TransactionProducts::class);
+
+}
 }

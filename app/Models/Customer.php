@@ -13,8 +13,10 @@ class Customer extends Model
         'phone',
     ];
 
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class);
-    }
+   
+        // Buyer.php
+public function transactions()
+{
+    return $this->morphMany(Transaction::class, 'customerable');
+}
 }

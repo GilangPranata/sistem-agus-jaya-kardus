@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -15,10 +16,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
+            $table->enum('type', ['buyer', 'collector'])->default('buyer'); // Tipe customer
             $table->string('phone');
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
@@ -27,4 +30,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('customers');
     }
+
+
+
 };
