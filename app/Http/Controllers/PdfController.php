@@ -35,7 +35,7 @@ class PdfController extends Controller
 
     public function printTransaction($id){
 
-        $transaction = Transaction::with('customer', 'transactionProducts')->where('id', $id)->firstOrFail();
+        $transaction = Transaction::with('customer', 'transactionProducts.product')->where('id', $id)->firstOrFail();
         $pdf = Pdf::loadView('admin.pages.print-pdf.transactions', compact('transaction'))->setPaper('A4');
 
         return $pdf->download('invoice-'.$transaction->invoice.'.pdf');

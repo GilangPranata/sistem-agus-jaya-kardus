@@ -1,3 +1,4 @@
+{{-- @dd($transaction) --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>ID Produk</th>
+                <th>Nama Produk</th>
                 <th>Jumlah</th>
                 <th>Subtotal (Rp)</th>
             </tr>
@@ -31,7 +32,7 @@
             @foreach($transaction->transactionProducts as $index => $product)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $product->product_id }}</td>
+                    <td>{{ $product->product->name }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ number_format($product->subtotal, 0, ',', '.') }}</td>
                 </tr>
