@@ -18,7 +18,7 @@ class TransactionController extends Controller
 public function index()
     {
         // return customer on sale, or collector on purchase
-        $transactions = Transaction::with('customer')->get();
+        $transactions = Transaction::with('customer')->latest()->get();
        
         return view('admin.pages.transaction.index', compact('transactions'));
 

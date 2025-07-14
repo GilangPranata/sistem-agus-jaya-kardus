@@ -37,6 +37,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $productIds = $request->product_id;
         $quantities = $request->qty;
     
@@ -75,6 +76,7 @@ class SaleController extends Controller
     
             // Update total transaksi
             $transaction->total_amount = $totalAmount;
+            // dd($transaction->total_amount);
             $transaction->save();
     
             DB::commit();
