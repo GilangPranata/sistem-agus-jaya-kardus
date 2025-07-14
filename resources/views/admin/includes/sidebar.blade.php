@@ -29,15 +29,15 @@
      
   
      @if (Auth::user()->name == 'admin')
-        {{-- <a href="{{ route('purchase.create') }}" 
+        <a href="{{ route('purchase.index') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('purchase.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-down me-2"></i>Pembelian
      </a>
 
-        <a href="{{ route('sale.create') }}" 
+        <a href="{{ route('sale.index') }}" 
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('sale.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-up me-2"></i>Penjualan
-     </a> --}}
+     </a>
   
         <a href="{{ route('transaction.index') }}" 
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaction.*') ? 'fw-bold' : '' }}">

@@ -25,8 +25,7 @@
                 <div class="col-lg-12">
                     {{-- @role('admin') --}}
                    <a href="{{ route('produk.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Buat Produk Baru</a>
-                   <a href="{{ route('sale.create') }}" class="btn btn-secondary mb-2"><i class="bi bi-plus-lg me-1"></i> Input Penjualan</a>
-                   <a href="{{ route('purchase.create') }}" class="btn btn-success mb-2"><i class="bi bi-plus-lg me-1"></i> Input Pembelian</a>
+           
                     {{-- @endrole --}}
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">

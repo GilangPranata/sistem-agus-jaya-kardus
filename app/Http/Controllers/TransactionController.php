@@ -15,14 +15,19 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-public function index()
-    {
-        // return customer on sale, or collector on purchase
-        $transactions = Transaction::with('customer')->latest()->get();
-       
-        return view('admin.pages.transaction.index', compact('transactions'));
+public function index(Request $request)
+{
+    $transactions = Transaction::query()
+        ->when($request->from, fn($q) => $q->whereDate('created_at', '>=', $request->from))
+        ->when($request->to, fn($q) => $q->whereDate('created_at', '<=', $request->to))
+        ->with('customer')
+        ->latest()
+        ->get(); // gunakan get() bukan paginate()
 
-        }
+    return view('admin.pages.transaction.index', compact('transactions'));
+}
+
+    
 
     /**
      * Show the form for creating a new resource.

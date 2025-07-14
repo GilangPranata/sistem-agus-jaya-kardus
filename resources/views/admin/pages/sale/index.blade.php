@@ -55,7 +55,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($transactions as $index => $transaction)
+        @foreach ($sales as $index => $transaction)
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td class="{{ $transaction->type == 'purchase' ? 'text-success' : 'text-danger' }}">

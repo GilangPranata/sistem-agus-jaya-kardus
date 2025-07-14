@@ -16,9 +16,18 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index(Request $request)
     {
-      
+      $sales = Transaction::query()
+    ->where('type', 'purchase') // Hanya ambil transaksi penjualan
+    ->when($request->from, fn($q) => $q->whereDate('created_at', '>=', $request->from))
+    ->when($request->to, fn($q) => $q->whereDate('created_at', '<=', $request->to))
+    ->with('customer')
+    ->latest()
+    ->get(); // get semua data tanpa pagination
+
+
+        return view('admin.pages.sale.index', compact('sales'));
     }
 
     /**
