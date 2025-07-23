@@ -37,7 +37,11 @@ Route::resource('request-order', RequestOrderController::class);
 // Route::get('/transactions/print', [Controller::class, 'printTransactions'])->name('transactions.print');
 Route::get('/stock/print', [PdfController::class, 'printDashboard'])->name('stock.print');
 Route::get('/transactions/print/{id}', [PdfController::class, 'printTransaction'])->name('transactions.print');
-
+//route export pdf dan excel
+Route::get('/transactions/export/pdf', [TransactionController::class, 'exportPdf'])->name('transaction.export.pdf');
+//Route::get('/transactions/export/excel', [TransactionController::class, 'exportExcel'])->name('transaction.export.excel');
+Route::get('/transactions/export/excel', [TransactionController::class, 'exportExcel'])
+    ->name('transaction.export.excel');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

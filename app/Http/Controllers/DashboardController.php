@@ -17,30 +17,57 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-//    dd($request->all());
-        $products = Product::all()->count();
-        $categories = Category::all()->count();
-        $staffs = Staff::all()->count();
-        $buyers = Customer::where('type', 'buyer')->count(); // Count buyers
-        $transactions = Transaction::all()->count();
-        $requestOrders = RequestOrder::all()->count();
+{
+    $selectedMonth = $request->input('month'); // Ambil bulan dari filter (1-12)
 
-        // total income sum
-        $totalIncome = \App\Models\Transaction::where('type', 'sale')->sum('total_amount');
-      
+    // Jika bulan dipilih, filter berdasarkan bulan
+    if ($selectedMonth) {
+        $products = Product::whereMonth('created_at', $selectedMonth)->count();
+        $categories = Category::whereMonth('created_at', $selectedMonth)->count();
+        $staffs = Staff::whereMonth('created_at', $selectedMonth)->count();
+        $buyers = Customer::where('type', 'buyer')->whereMonth('created_at', $selectedMonth)->count();
+        $requestOrders = RequestOrder::whereMonth('created_at', $selectedMonth)->count();
 
-        $totalOutcome = \App\Models\Transaction::where('type', 'purchase')->sum('total_amount');
-      
-        $month = $request->input('month', date('m')); // Default to current month
+        $transactions = Transaction::whereMonth('created_at', $selectedMonth)->count();
 
-    // // Count transactions for the selected month
-    $transactions = Transaction::whereMonth('created_at', $month)->count();
+        $totalIncome = Transaction::where('type', 'sale')
+            ->whereMonth('created_at', $selectedMonth)
+            ->sum('total_amount');
 
-        $month = date('F', mktime(0, 0, 0, $month, 1));
-        // inputed month 
-        return view('admin.pages.dashboard.index', compact('products', 'categories', 'staffs', 'buyers', 'transactions',  'month', 'requestOrders', 'totalIncome', 'totalOutcome'));
+        $totalOutcome = Transaction::where('type', 'purchase')
+            ->whereMonth('created_at', $selectedMonth)
+            ->sum('total_amount');
+    } else {
+        // Jika tidak ada bulan dipilih, tampilkan semua data
+        $products = Product::count();
+        $categories = Category::count();
+        $staffs = Staff::count();
+        $buyers = Customer::where('type', 'buyer')->count();
+        $requestOrders = RequestOrder::count();
+
+        $transactions = Transaction::count();
+        $totalIncome = Transaction::where('type', 'sale')->sum('total_amount');
+        $totalOutcome = Transaction::where('type', 'purchase')->sum('total_amount');
     }
+
+    // Nama bulan untuk ditampilkan di view
+    $month = $selectedMonth
+        ? date('F', mktime(0, 0, 0, $selectedMonth, 1))
+        : 'Semua';
+
+    return view('admin.pages.dashboard.index', compact(
+        'products',
+        'categories',
+        'staffs',
+        'buyers',
+        'transactions',
+        'month',
+        'requestOrders',
+        'totalIncome',
+        'totalOutcome'
+    ));
+}
+
 
     /**
      * Show the form for creating a new resource.

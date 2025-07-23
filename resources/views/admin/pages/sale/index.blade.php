@@ -11,72 +11,80 @@
     <x-alert type="danger" :message="$message" />
 @endif
 
-<div class="row px-3">
-    <div class="py-2 border-bottom">
-        <h1 class="h1 text-center">Riwayat Transaksi</h1>
+<div class="container-fluid px-4">
+    <div class="py-4 text-center border-bottom mb-4">
+        <h2 class="fw-bold text-dark"> Transaksi Penjualan</h2>
     </div>
 
     {{-- Filter Tanggal --}}
-    <div class="row px-3 pt-4 pb-2 bg-white rounded shadow mb-3">
-        <form method="GET" class="col-lg-12 d-flex flex-wrap align-items-end gap-3">
-            <div>
-                <label for="from" class="form-label fw-bold mb-0">Dari Tanggal</label>
+    <div class="bg-white rounded shadow-sm p-4 mb-4">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label for="from" class="form-label">Dari Tanggal</label>
                 <input type="date" name="from" id="from" class="form-control" value="{{ request('from') }}">
             </div>
-            <div>
-                <label for="to" class="form-label fw-bold mb-0">Sampai Tanggal</label>
+            <div class="col-md-3">
+                <label for="to" class="form-label">Sampai Tanggal</label>
                 <input type="date" name="to" id="to" class="form-control" value="{{ request('to') }}">
             </div>
-            <div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-filter"></i> Filter
-                </button>
-                <a href="{{ route('transaction.index') }}" class="btn btn-secondary">
-                    <i class="bi bi-x-circle"></i> Reset
-                </a>
-            </div>
+         <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-success w-100">
+                <i class="bi bi-filter"></i> Filter
+            </button>
+            <a href="{{ route('transaction.index') }}" class="btn btn-outline-secondary w-100">
+                <i class="bi bi-x-circle"></i> Reset
+            </a>
+        </div>
+            {{-- Tombol Tambah Penjualan --}}
+<div class="mb-3">
+   <a href="{{ route('sale.create') }}" class="btn btn-primary">
+    <i class="bi bi-plus-circle"></i> Tambah transaksi
+</a>
+
+</div>
+
         </form>
     </div>
 
-    {{-- Tabel Data --}}
-    <div class="row px-3 pt-3 pb-4 bg-white rounded shadow">
-        <div class="col-lg-12">
-            <div class="table-responsive" style="max-height: 500px;">
-                <table id="transaksiTable" class="table table-bordered text-center">
-    <thead class="bg-4">
-        <tr>
-            <th>No</th>
-            <th>Jenis Transaksi</th>
-            <th>Invoice</th>
-            <th>Total Harga</th>
-            <th>Customer</th>
-            <th>Tanggal</th>
-            <th>Print</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($sales as $index => $transaction)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td class="{{ $transaction->type == 'purchase' ? 'text-success' : 'text-danger' }}">
-                    {{ $transaction->type == 'purchase' ? 'Pembelian' : 'Penjualan' }}
-                </td>
-                <td>{{ $transaction->invoice }}</td>
-                <td>{{ number_format($transaction->total_amount, 0, ',', '.') }}</td>
-                <td>{{ $transaction->customer->name ?? '-' }}</td>
-                <td>{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
-                <td>
-                    <a href="{{ route('transactions.print', $transaction->id) }}" class="btn btn-sm btn-primary" target="_blank">
-                        <i class="fas fa-print"></i> PDF
-                    </a>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-            </div>
-
-          
+    {{-- Tabel Transaksi --}}
+    <div class="bg-white rounded shadow-sm p-4">
+        <div class="table-responsive" style="max-height: 500px;">
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>No</th>
+                        <th>Jenis Transaksi</th>
+                        <th>Invoice</th>
+                        <th>Total Harga</th>
+                        <th>Pengepul</th>
+                        <th>Tanggal</th>
+                        <th>Cetak</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($sales as $index => $transaction)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td class="{{ $transaction->type == 'purchase' ? 'text-success fw-bold' : 'text-danger fw-bold' }}">
+                                {{ $transaction->type == 'purchase' ? 'Pembelian' : 'Penjualan' }}
+                            </td>
+                            <td>{{ $transaction->invoice }}</td>
+                            <td>Rp {{ number_format($transaction->total_amount, 0, ',', '.') }}</td>
+                            <td>{{ $transaction->customer->name ?? '-' }}</td>
+                            <td>{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
+                            <td>
+                                <a href="{{ route('transactions.print', $transaction->id) }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                    <i class="fas fa-print"></i> PDF
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-muted">Tidak ada data transaksi.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

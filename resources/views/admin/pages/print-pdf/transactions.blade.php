@@ -13,6 +13,7 @@
     </style>
 </head>
 <body>
+    <h1>PT Agus Jaya Kardus</h1>
     <h1>Invoice: {{ $transaction->invoice }}</h1>
     <p><strong>Tanggal:</strong> {{ $transaction->created_at->format('d-m-Y H:i') }}</p>
     <p><strong>Jenis Transaksi:</strong> {{ ucfirst($transaction->type) }}</p>

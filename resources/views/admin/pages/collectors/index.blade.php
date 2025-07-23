@@ -22,7 +22,7 @@
                 {{-- Data Table --}}
                 <div class="col-lg-12">
                     @role('admin')
-                   <a href="{{ route('collector.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Tambah Pengepul Baru</a>
+                   <a href="{{ route('collector.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Tambah Pengepul</a>
                     @endrole
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">
@@ -58,7 +58,7 @@
                                         </td>
                                         @endrole
                                     </tr>
-                                    
+
                                 @empty
                                     <tr>
                                         <td colspan="8">Data tidak ditemukan</td>

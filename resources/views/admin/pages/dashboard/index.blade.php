@@ -46,18 +46,17 @@
         <div class="col-lg-12">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    
+
                         {{-- only admin can see --}}
 
-                        
+
                         @if (Auth::user()->name == 'admin')
-                           
-            <a href="{{ route('request-order.index') }}">
+
                 @endif
                         <div class="card border-info shadow-sm">
                             <div class="card-body text-center">
-                                <h5 class="card-title text-info">Total Permintaan Pengepul</h5>
-                                <h3 class="card-text">{{ $requestOrders  }} </h3>
+                                <h5 class="card-title text-info">Total Kategori</h5>
+                                <h3 class="card-text">{{ $categories  }} </h3>
                             </div>
                         </div>
                     </a>
@@ -76,7 +75,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card border-secondary shadow-sm">
                         <div class="card-body text-center">
-                            <h5 class="card-title text-secondary">Total Pengeluaran</h5>
+                            <h5 class="card-title text-secondary">Total Pembelian</h5>
                             <h3 class="card-text">Rp. {{ number_format($totalOutcome, 0, ',', '.') }}</h3>
 
                         </div>
@@ -87,7 +86,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card border-success shadow-sm">
                         <div class="card-body text-center">
-                            <h5 class="card-title text-success">Total Pemasukan</h5>
+                            <h5 class="card-title text-success">Total Penjualan</h5>
                             <h3 class="card-text">Rp. {{ number_format($totalIncome, 0, ',', '.') }}</h3>
                         </div>
                     </div>
@@ -115,14 +114,15 @@
             </div>
 
             {{-- Print Buttons --}}
-            <div class="mt-4 text-center">
+           {{--  <div class="mt-4 text-center">
                 {{-- <a href="{{ route('transactions.print') }}" class="btn btn-primary me-2">
                     <i class="bi bi-printer me-1"></i> Print Transaksi
-                </a> --}}
+                </a>
+
                 <a href="{{ route('stock.print') }}" class="btn btn-secondary">
                     <i class="bi bi-printer me-1"></i> Print Stok
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

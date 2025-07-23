@@ -3,73 +3,74 @@
      <div class="text-center text-white fw-bold py-3 border-bottom">
         PT AGUS JAYA KARDUS
     </div>
+
     <div class="list-group list-group-flush my-3">
       {{-- only admin --}}
-      <a href="{{ route('dashboard.index') }}" 
-      class="list-group-item list-group-item-action bg-4   {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
+      <a href="{{ route('dashboard.index') }}"
+      class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
       <i class="bi bi-house me-2"></i>Dashboard
     </a>
     @if (Auth::user()->name == 'admin')
-    
- 
-    
-     <a href="{{ route('kategori.index') }}" 
+
+
+
+     <a href="{{ route('kategori.index') }}"
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('kategori.*') ? 'fw-bold' : '' }}">
-         <i class="bi bi-laptop me-2"></i>Kategori 
+         <i class="bi bi-laptop me-2"></i>Kategori
      </a>
-       
+
      @endif
      {{-- @if (Auth::user()->name == 'pelanggan') --}}
-        <a href="{{ route('produk.index') }}" 
+        <a href="{{ route('produk.index') }}"
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-in-down me-2"></i>Produk
      </a>
      {{-- @endif --}}
 
-     
-  
+
+
      @if (Auth::user()->name == 'admin')
-        <a href="{{ route('purchase.index') }}" 
+        <a href="{{ route('purchase.index') }}"
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('purchase.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-down me-2"></i>Pembelian
      </a>
 
-        <a href="{{ route('sale.index') }}" 
+        <a href="{{ route('sale.index') }}"
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('sale.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-up me-2"></i>Penjualan
      </a>
-  
-        <a href="{{ route('transaction.index') }}" 
+
+        <a href="{{ route('transaction.index') }}"
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaction.*') ? 'fw-bold' : '' }}">
-            <i class="bi bi-box-arrow-in-down me-2"></i>Riwayat Transaksi
+            <i class="bi bi-box-arrow-in-down me-2"></i>Laporan
         </a>
-        <a href="{{ route('staff.index') }}" 
+        <a href="{{ route('staff.index') }}"
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('staff.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Kelola Pegawai
         </a>
-        <a href="{{ route('pelanggan.index') }}" 
+        <a href="{{ route('pelanggan.index') }}"
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('pelanggan.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Kelola Pelanggan
         </a>
-        <a href="{{ route('collector.index') }}" 
+        <a href="{{ route('collector.index') }}"
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('collector.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Kelola Pengepul
         </a>
 
-        
-        <a href="{{ route('request-order.index') }}" 
+
+        {{-- <a href="{{ route('request-order.index') }}"
            class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('request-order.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-people me-2"></i>Permintaan Pengepul
-        </a>
+        </a> --}}
         @endif
 
         @if (Auth::user()->name == 'pengepul')
-        <a href="{{ route('request-order.create') }}" 
+        <a href="{{ route('request-order.create') }}"
         class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('request-order.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-people me-2"></i>Pesan Barang
      </a>
         @endif
-      
+
     </div>
 </div>
 
@@ -110,11 +111,11 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <div class="row mt-3">  
+                            <div class="row mt-3">
                                 <div class="col-md-12 d-flex justify-content-end">
                                     <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Keluar</button>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alertEditModal">Simpan</button>
-                                </div>                                     
+                                </div>
                             </div>
                         </div>
                     </div>

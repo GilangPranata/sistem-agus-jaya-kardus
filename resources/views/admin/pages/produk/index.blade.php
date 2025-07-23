@@ -25,7 +25,7 @@
                 <div class="col-lg-12">
                     {{-- @role('admin') --}}
                    <a href="{{ route('produk.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Buat Produk Baru</a>
-           
+
                     {{-- @endrole --}}
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">
@@ -34,9 +34,9 @@
                                     <th>No</th>
                                     <th>Kategori</th>
                                     <th>Nama</th>
-                                    <th>Deskripsi</th>
-                                    <th>Harga Jual</th>
+                                    
                                     <th>Harga Beli</th>
+                                    <th>Harga Jual</th>
                                     <th>Stok</th>
                                     <th>Unit</th>
                                     @role('admin')
@@ -50,9 +50,9 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->name }}</td>
-                                        <td>{{ $product->description }}</td>
-                                        <td>Rp.{{ $product->sale_price }}</td>
+
                                         <td>Rp.{{ $product->purchase_price }}</td>
+                                        <td>Rp.{{ $product->sale_price }}</td>
                                         <td>{{ $product->stock }}</td>
                                         <td>{{ $product->unit }}</td>
                                         @role('admin')
@@ -66,7 +66,7 @@
                                         </td>
                                         @endrole
                                     </tr>
-                                    
+
                                 @empty
                                     <tr>
                                         <td colspan="8">Data tidak ditemukan</td>

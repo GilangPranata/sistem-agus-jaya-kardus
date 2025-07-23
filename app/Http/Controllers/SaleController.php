@@ -37,7 +37,7 @@ class SaleController extends Controller
     {
         $products = Product::all();
         $collectors = Customer::where('type', 'collector')->get(); // Ambil collector dengan type 'collector'
-        
+
        return view('admin.pages.sale.form', compact('products', 'collectors'));
     }
 
@@ -49,47 +49,56 @@ class SaleController extends Controller
         // dd($request->all());
         $productIds = $request->product_id;
         $quantities = $request->qty;
-    
+
         DB::beginTransaction();
-    
+
         try {
             // Buat invoice dan transaksi awal
             $invoice = (new Transaction)->createInvoice();
-    
+
             $transaction = new Transaction();
             $transaction->type = $request->type; // 'purchase'
             $transaction->customer_id = $request->customer_id;
             $transaction->invoice = $invoice;
             $transaction->total_amount = 0; // sementara
             $transaction->save();
-    
+
             $totalAmount = 0;
-    
-            foreach ($productIds as $index => $productId) {
-                $qty = (int) $quantities[$index];
-                $product = Product::findOrFail($productId);
-                $subtotal = $product->sale_price * $qty;
-                $totalAmount += $subtotal;
-    
-                // Simpan detail transaksi
-                TransactionProducts::create([
-                    'transaction_id' => $transaction->id,
-                    'product_id' => $productId,
-                    'quantity' => $qty,
-                    'subtotal' => $subtotal,
-                ]);
-    
-                // Tambahkan stok produk
-                $product->increment('stock', $qty);
-            }
-    
+
+           foreach ($productIds as $index => $productId) {
+    $qty = (int) $quantities[$index];
+    $product = Product::findOrFail($productId);
+
+    // Cek apakah stok cukup
+    if ($product->stock < $qty) {
+        DB::rollBack(); // Batalkan transaksi sebelum keluar
+        return back()->with('error', "Stok produk '{$product->name}' tidak cukup. Sisa stok: {$product->stock}");
+    }
+
+    $subtotal = $product->sale_price * $qty;
+    $totalAmount += $subtotal;
+
+    // Simpan detail transaksi
+    TransactionProducts::create([
+        'transaction_id' => $transaction->id,
+        'product_id' => $productId,
+        'quantity' => $qty,
+        'subtotal' => $subtotal,
+    ]);
+
+    // Kurangi stok karena ini penjualan
+    $product->decrement('stock', $qty);
+}
+
+
+
             // Update total transaksi
             $transaction->total_amount = $totalAmount;
             // dd($transaction->total_amount);
             $transaction->save();
-    
+
             DB::commit();
-    
+
             return redirect()->route('transaction.index')->with('success', 'Transaksi pembelian berhasil disimpan.');
         } catch (\Exception $e) {
             DB::rollBack();

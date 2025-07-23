@@ -27,7 +27,7 @@ class PurchaseController extends Controller
     ->get(); // get semua data tanpa pagination
 
 
-        return view('admin.pages.sale.index', compact('sales'));
+        return view('admin.pages.purchase.index', compact('sales'));
     }
 
     /**
@@ -46,31 +46,31 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-   
+
         $productIds = $request->product_id;
         $quantities = $request->qty;
-    
+
         DB::beginTransaction();
-    
+
         try {
             // Buat invoice dan transaksi awal
             $invoice = (new Transaction)->createInvoice();
-    
+
             $transaction = new Transaction();
             $transaction->type = $request->type; // 'purchase'
             $transaction->customer_id = $request->customer_id;
             $transaction->invoice = $invoice;
             $transaction->total_amount = 0; // sementara
             $transaction->save();
-    
+
             $totalAmount = 0;
-    
+
             foreach ($productIds as $index => $productId) {
                 $qty = (int) $quantities[$index];
                 $product = Product::findOrFail($productId);
                 $subtotal = $product->purchase_price * $qty;
                 $totalAmount += $subtotal;
-    
+
                 // Simpan detail transaksi
                 TransactionProducts::create([
                     'transaction_id' => $transaction->id,
@@ -78,18 +78,18 @@ class PurchaseController extends Controller
                     'quantity' => $qty,
                     'subtotal' => $subtotal,
                 ]);
-    
+
                 // Tambahkan stok produk
                 $product->increment('stock', $qty);
             }
-    
+
             // Update total transaksi
             $transaction->total_amount = $totalAmount;
             // dd($transaction->total_amount);
             $transaction->save();
-    
+
             DB::commit();
-    
+
             return redirect()->route('transaction.index')->with('success', 'Transaksi pembelian berhasil disimpan.');
         } catch (\Exception $e) {
             DB::rollBack();

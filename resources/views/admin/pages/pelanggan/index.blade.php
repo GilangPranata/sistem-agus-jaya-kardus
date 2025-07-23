@@ -22,7 +22,7 @@
             <div class="row g-5">
                 {{-- Data Table --}}
                 <div class="col-lg-12">
-                   <a href="{{ route('pelanggan.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Buat Pelanggan Baru</a>
+                   <a href="{{ route('pelanggan.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Tambah Pelanggan</a>
 
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">
@@ -42,7 +42,7 @@
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->address }}</td>
                                         <td>{{ $customer->phone }}</td>
-                                       
+
                                         <td>
                                             <a href="{{ route('pelanggan.edit', $customer->id) }}" class="btn btn-warning">Edit</a>
                                             <form action="{{ route('pelanggan.destroy', $customer->id) }}" method="POST" class="d-inline">
@@ -52,7 +52,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    
+
                                 @empty
                                     <tr>
                                         <td colspan="8">Data tidak ditemukan</td>

@@ -53,9 +53,9 @@
 
                         {{-- Pelanggan --}}
                         <div class="col-md-6 mb-3">
-                            <label for="customer_id" class="form-label fw-bold">Pelanggan</label>
+                            <label for="customer_id" class="form-label fw-bold">Pengepul</label>
                             <select class="form-select" id="customer_id" name="customer_id" required>
-                                <option value="" disabled selected>Pilih Pelanggan</option>
+                                <option value="" disabled selected>Pilih Pengepul</option>
                                 @foreach($collectors as $collector)
                                     <option value="{{ $collector->id }}">{{ $collector->name }}</option>
                                 @endforeach
