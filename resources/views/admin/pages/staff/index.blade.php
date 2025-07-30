@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
-
-@section('title', 'Kategori')
+<link rel="icon" type="image/png" href="{{ asset('img/LOGO.png') }}">
+@section('title', 'Pegawai')
 
 @section('content')
 @if ($message = session('success'))
@@ -57,7 +57,7 @@
                                         </td>
                                         @endrole
                                     </tr>
-                                    
+
                                 @empty
                                     <tr>
                                         <td colspan="8">Data tidak ditemukan</td>

@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-
+<link rel="icon" type="image/png" href="{{ asset('img/LOGO.png') }}">
 @section('title', 'Dashboard')
 
 @section('content')
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                {{-- Total Categories --}}
+                {{-- Total Pembelian --}}
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card border-secondary shadow-sm">
                         <div class="card-body text-center">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                {{-- Total Staff --}}
+                {{-- Total Penjualan --}}
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card border-success shadow-sm">
                         <div class="card-body text-center">
@@ -92,12 +92,12 @@
                     </div>
                 </div>
 
-                {{-- Total Customers --}}
+                {{-- Total Pelanggan --}}
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card border-danger shadow-sm">
                         <div class="card-body text-center">
-                            <h5 class="card-title text-danger">Total Pelanggan</h5>
-                            <h3 class="card-text">{{ $buyers }}</h3>
+                            <h5 class="card-title text-danger">Total Pegawai</h5>
+                            <h3 class="card-text">{{ $staffs }}</h3>
                         </div>
                     </div>
                 </div>

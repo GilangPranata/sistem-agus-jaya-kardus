@@ -18,15 +18,15 @@
                         <div class="row">
                             {{-- Left Column --}}
                             <div class="col-md-6">
-                              
+
                                 <div class="mb-3">
                                     <label for="name" class="form-label fw-bold">Nama Staff</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama Staff" value="{{ @$staff ? $staff->name : '' }}" required>
                                 </div>
-                                <div class="mb-3">
+                               <div class="mb-3">
                                     <label for="description" class="form-label fw-bold">Alamat</label>
                                     <textarea class="form-control" id="description" name="address" rows="3" placeholder="Alamat">{{ old('description', @$staff ? $staff->address : '') }}</textarea>
-                                </div>
+                                </div> 
                                 <div class="mb-3">
                                     <label for="price" class="form-label fw-bold">Tanggal Bergabung</label>
                                     <input type="date" class="form-control" id="price" name="join_date" placeholder="Masukkan harga" value="{{ @$staff ? $staff->join_date : '' }}" required>
@@ -42,12 +42,12 @@
                                 @if(!isset($staff))
     <div class="mb-3">
         <label for="stock" class="form-label fw-bold">Password</label>
-        <input type="password" class="form-control" id="stock" 
+        <input type="password" class="form-control" id="stock"
             name="password" placeholder="Password" required>
     </div>
 @endif
 
-                           
+
                             </div>
                         </div>
 

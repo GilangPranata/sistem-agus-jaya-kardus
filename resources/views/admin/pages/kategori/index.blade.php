@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-
+<link rel="icon" type="image/png" href="{{ asset('img/LOGO.png') }}">
 @section('title', 'Kategori')
 
 @section('content')
@@ -53,7 +53,7 @@
                                         </td>
                                         @endrole
                                     </tr>
-                                    
+
                                 @empty
                                     <tr>
                                         <td colspan="3">Data tidak ditemukan</td>

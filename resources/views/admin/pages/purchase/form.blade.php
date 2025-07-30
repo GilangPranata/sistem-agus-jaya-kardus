@@ -21,23 +21,32 @@
                 @method(@$transaction ? 'PUT' : 'POST')
                 <input type="hidden" name="type" value="purchase">
 
-                {{-- Produk & Jumlah --}}
+                {{-- Produk, Jumlah, Harga, Subtotal --}}
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Produk & Jumlah</label>
+
                     <div id="product-container">
                         <div class="row product-row mb-2 align-items-end">
-                            <div class="col-md-5">
-                                <select class="form-select" name="product_id[]" required>
-                                    <option value="" disabled selected>Pilih Produk</option>
-                                    @foreach($products as $product)
-                                        <option value="{{ $product->id }}" data-price="{{ $product->purchase_price }}">{{ $product->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-4">
+                     <label class="form-label fw-bold">Produk</label>
+                     <select class="form-select" name="product_id[]" required>
+                       <option value="" disabled selected>Pilih Produk</option>
+                       @foreach($products as $product)
+                         <option value="{{ $product->id }}" data-price="{{ $product->purchase_price }}">{{ $product->name }}</option>
+                     @endforeach
+                     </select>
+                        </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label fw-bold">Harga</label>
+                                <input type="text" class="form-control harga-satuan" placeholder="Harga" readonly>
                             </div>
                             <div class="col-md-2">
+                                <label class="form-label fw-bold">Jumlah</label>
                                 <input type="number" name="qty[]" class="form-control" placeholder="Jumlah" required>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-2">
+                                <label class="form-label fw-bold">Total harga</label>
                                 <input type="text" class="form-control subtotal" placeholder="Subtotal" readonly>
                             </div>
                             <div class="col-md-2">
@@ -100,12 +109,14 @@
         document.querySelectorAll('.product-row').forEach(row => {
             const select = row.querySelector('select[name="product_id[]"]');
             const qtyInput = row.querySelector('input[name="qty[]"]');
+            const hargaInput = row.querySelector('.harga-satuan');
             const subtotalInput = row.querySelector('.subtotal');
 
             const selectedOption = select.options[select.selectedIndex];
             const price = selectedOption ? parseFloat(selectedOption.dataset.price || 0) : 0;
             const qty = parseInt(qtyInput.value || 0);
 
+            hargaInput.value = formatRupiah(price);
             const subtotal = price * qty;
             subtotalInput.value = formatRupiah(subtotal);
             total += subtotal;
@@ -114,7 +125,7 @@
         document.getElementById('total-harga').innerText = formatRupiah(total);
     }
 
-    document.addEventListener('change', function (e) {
+    document.addEventListener('input', function (e) {
         if (e.target.matches('select[name="product_id[]"], input[name="qty[]"]')) {
             hitungTotal();
         }
@@ -125,16 +136,19 @@
         const newRow = document.createElement('div');
         newRow.classList.add('row', 'product-row', 'mb-2', 'align-items-end');
         newRow.innerHTML = `
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <select class="form-select" name="product_id[]" required>
                     <option value="" disabled selected>Pilih Produk</option>
                     ${getProductOptions()}
                 </select>
             </div>
+             <div class="col-md-2">
+                <input type="text" class="form-control harga-satuan" placeholder="Harga" readonly>
+            </div>
             <div class="col-md-2">
                 <input type="number" name="qty[]" class="form-control" placeholder="Jumlah" required>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="text" class="form-control subtotal" placeholder="Subtotal" readonly>
             </div>
             <div class="col-md-2">

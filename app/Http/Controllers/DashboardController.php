@@ -18,16 +18,15 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
 {
-    $selectedMonth = $request->input('month'); // Ambil bulan dari filter (1-12)
+    $selectedMonth = $request->input('month');
 
-    // Jika bulan dipilih, filter berdasarkan bulan
+    // Data yang tidak berubah walaupun ada filter bulan
+    $products = Product::count();
+    $categories = Category::count();
+    $staffs = Staff::count();
+
+    // Data yang berubah sesuai filter bulan
     if ($selectedMonth) {
-        $products = Product::whereMonth('created_at', $selectedMonth)->count();
-        $categories = Category::whereMonth('created_at', $selectedMonth)->count();
-        $staffs = Staff::whereMonth('created_at', $selectedMonth)->count();
-        $buyers = Customer::where('type', 'buyer')->whereMonth('created_at', $selectedMonth)->count();
-        $requestOrders = RequestOrder::whereMonth('created_at', $selectedMonth)->count();
-
         $transactions = Transaction::whereMonth('created_at', $selectedMonth)->count();
 
         $totalIncome = Transaction::where('type', 'sale')
@@ -38,19 +37,11 @@ class DashboardController extends Controller
             ->whereMonth('created_at', $selectedMonth)
             ->sum('total_amount');
     } else {
-        // Jika tidak ada bulan dipilih, tampilkan semua data
-        $products = Product::count();
-        $categories = Category::count();
-        $staffs = Staff::count();
-        $buyers = Customer::where('type', 'buyer')->count();
-        $requestOrders = RequestOrder::count();
-
         $transactions = Transaction::count();
         $totalIncome = Transaction::where('type', 'sale')->sum('total_amount');
         $totalOutcome = Transaction::where('type', 'purchase')->sum('total_amount');
     }
 
-    // Nama bulan untuk ditampilkan di view
     $month = $selectedMonth
         ? date('F', mktime(0, 0, 0, $selectedMonth, 1))
         : 'Semua';
@@ -59,14 +50,13 @@ class DashboardController extends Controller
         'products',
         'categories',
         'staffs',
-        'buyers',
         'transactions',
-        'month',
-        'requestOrders',
         'totalIncome',
-        'totalOutcome'
+        'totalOutcome',
+        'month'
     ));
 }
+
 
 
     /**

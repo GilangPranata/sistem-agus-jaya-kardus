@@ -12,8 +12,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::latest()->get();
-        
+        $customers = Customer::where('type', 'buyer')->latest()->get();
+
         return view('admin.pages.pelanggan.index', compact('customers'));
     }
 

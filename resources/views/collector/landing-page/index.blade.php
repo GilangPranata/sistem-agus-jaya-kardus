@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="{{ asset('img/LOGO.png') }}">
   <title>Profil PT Agus Jaya Kardus</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,6 +28,7 @@
         <a href="#about" class="text-gray-700 hover:text-blue-600">Tentang Kami</a>
         <a href="#produk" class="text-gray-700 hover:text-blue-600">Produk</a>
         <a href="#cta" class="text-gray-700 hover:text-blue-600">Kontak</a>
+        <a href="/login" class="text-gray-700 hover:text-blue-600">Login</a>
       </div>
     </div>
   </nav>

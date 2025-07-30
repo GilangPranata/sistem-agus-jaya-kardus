@@ -11,9 +11,13 @@
         <div class="col-lg-12">
             <div class="row g-4">
                 <div class="col-lg-12">
-                    <form action="{{ @$produk ? route('produk.update', $produk) : route('produk.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method(@$produk ? 'PUT' : 'POST')
+                    <form action="{{ @$product ? route('produk.update', $product->id) : route('produk.store') }}" method="POST">
+    @csrf
+    @if (@$product)
+        @method('PUT')
+    @endif
+
+
 
                         <div class="row">
                             {{-- Left Column --}}
@@ -40,13 +44,15 @@
                             {{-- Right Column --}}
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="price" class="form-label fw-bold">Harga Jual</label>
-                                    <input type="number" class="form-control" id="price" name="purchase_price" placeholder="Masukkan harga" value="{{ @$product ? $product->price : '' }}" required>
+                                    <label for="purchase_price" class="form-label fw-bold">Harga Beli</label>
+                                    <input type="number" class="form-control" id="purchase_price" name="purchase_price" placeholder="Masukkan harga beli" value="{{ @$product ? $product->purchase_price : '' }}" required>
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="price" class="form-label fw-bold">Harga Beli</label>
-                                    <input type="number" class="form-control" id="price" name="sale_price" placeholder="Masukkan harga" value="{{ @$product ? $product->price : '' }}" required>
+                                    <label for="sale_price" class="form-label fw-bold">Harga Jual</label>
+                                    <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Masukkan harga jual" value="{{ @$product ? $product->sale_price : '' }}" required>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="stock" class="form-label fw-bold">Stok</label>
                                     <input type="number" class="form-control" id="stock" name="stock" placeholder="Masukkan stok" value="{{ @$product ? $product->stock : '' }}" required>

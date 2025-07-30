@@ -1,8 +1,11 @@
 <div class="bg-4" id="sidebar-wrapper">
      <!-- Nama Perusahaan -->
-     <div class="text-center text-white fw-bold py-3 border-bottom">
-        PT AGUS JAYA KARDUS
-    </div>
+
+     <div class="text-center text-white fw-bold py-3 border-bottom d-flex align-items-center justify-content-center gap-2">
+    <img src="{{ asset('img/LOGO.png') }}" alt="Logo" style="width: 30px; height: 30px;">
+    PT AGUS JAYA KARDUS
+</div>
+
 
     <div class="list-group list-group-flush my-3">
       {{-- only admin --}}
@@ -10,26 +13,25 @@
       class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('dashboard.*') ? 'fw-bold' : '' }}">
       <i class="bi bi-house me-2"></i>Dashboard
     </a>
-    @if (Auth::user()->name == 'admin')
+   @if (in_array(Auth::user()->name, ['admin', 'pegawai']))
+    <a href="{{ route('kategori.index') }}"
+       class="list-group-item list-group-item-action bg-4 {{ Request()->routeIs('kategori.*') ? 'fw-bold' : '' }}">
+        <i class="bi bi-laptop me-2"></i>Kategori
+    </a>
+@endif
 
-
-
-     <a href="{{ route('kategori.index') }}"
-        class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('kategori.*') ? 'fw-bold' : '' }}">
-         <i class="bi bi-laptop me-2"></i>Kategori
-     </a>
-
-     @endif
      {{-- @if (Auth::user()->name == 'pelanggan') --}}
+     @if (in_array(Auth::user()->name, ['admin', 'pegawai']))
         <a href="{{ route('produk.index') }}"
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('produk.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-in-down me-2"></i>Produk
      </a>
+     @endif
      {{-- @endif --}}
 
 
 
-     @if (Auth::user()->name == 'admin')
+     @if (in_array(Auth::user()->name, ['admin', 'pegawai']))
         <a href="{{ route('purchase.index') }}"
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('purchase.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-down me-2"></i>Pembelian
@@ -39,7 +41,8 @@
         class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('sale.*') ? 'fw-bold' : '' }}">
          <i class="bi bi-box-arrow-up me-2"></i>Penjualan
      </a>
-
+     @endif
+@if (Auth::user()->name == 'admin')
         <a href="{{ route('transaction.index') }}"
            class="list-group-item list-group-item-action bg-4  {{ Request()->routeIs('transaction.*') ? 'fw-bold' : '' }}">
             <i class="bi bi-box-arrow-in-down me-2"></i>Laporan

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
-
-@section('title', 'Riwayat Transaksi')
+<link rel="icon" type="image/png" href="{{ asset('img/LOGO.png') }}">
+@section('title', 'Laporan')
 
 @section('content')
     {{-- Notifikasi --}}

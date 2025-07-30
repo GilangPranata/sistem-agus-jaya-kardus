@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
-
-@section('title', 'Kategori')
+<link rel="icon" type="image/png" href="{{ asset('img/LOGO.png') }}">
+@section('title', 'Pengepul')
 
 @section('content')
 @if ($message = session('success'))

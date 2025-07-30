@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
-
-@section('title', 'Kategori')
+<link rel="icon" type="image/png" href="{{ asset('img/LOGO.png') }}">
+@section('title', 'Produk')
 
 @section('content')
 @if ($message = session('success'))
@@ -23,10 +23,12 @@
             <div class="row g-5">
                 {{-- Data Table --}}
                 <div class="col-lg-12">
-                    {{-- @role('admin') --}}
-                   <a href="{{ route('produk.create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-lg me-1"></i> Buat Produk Baru</a>
+                    @role('admin')
+    <a href="{{ route('produk.create') }}" class="btn btn-primary mb-2">
+        <i class="bi bi-plus-lg me-1"></i> Buat Produk Baru
+    </a>
+@endrole
 
-                    {{-- @endrole --}}
                     <div class="table-responsive" style="max-height: 500px;">
                         <table class="table table-bordered text-center">
                             <thead class="bg-4">
@@ -34,7 +36,7 @@
                                     <th>No</th>
                                     <th>Kategori</th>
                                     <th>Nama</th>
-                                    
+
                                     <th>Harga Beli</th>
                                     <th>Harga Jual</th>
                                     <th>Stok</th>

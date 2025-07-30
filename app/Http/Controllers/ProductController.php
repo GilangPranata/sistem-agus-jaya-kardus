@@ -17,7 +17,7 @@ class ProductController extends Controller
 
             $products = Product::with('category')->latest()->get();
             return view('admin.pages.produk.index', compact('products'));
-        
+
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();  
+        $categories = Category::all();
         return view('admin.pages.produk.form', compact('categories'));
     }
 

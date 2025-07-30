@@ -90,7 +90,7 @@ class PurchaseController extends Controller
 
             DB::commit();
 
-            return redirect()->route('transaction.index')->with('success', 'Transaksi pembelian berhasil disimpan.');
+            return redirect()->route('purchase.index')->with('success', 'Transaksi pembelian berhasil disimpan.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
