@@ -30,8 +30,6 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>Tanggal Bergabung</th>
                                     <th>Email</th>
                                     @role('admin')
                                     <th>Aksi</th>
@@ -43,8 +41,6 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $staff->name }}</td>
-                                        <td>{{ $staff->address }}</td>
-                                        <td>{{ $staff->join_date }}</td>
                                         <td>{{ $staff->email }}</td>
                                         @role('admin')
                                         <td>

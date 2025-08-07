@@ -31,11 +31,11 @@
             </div>
 
             <div class="flex items-center justify-between mt-6">
-                @if (Route::has('password.request'))
+                {{-- @if (Route::has('password.request'))
                     <a class="text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
-                @endif
+                @endif --}}
 
                 <x-primary-button class="ml-3">
                     {{ __('Log in') }}
